@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Nadu Marriage Registration - Create Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1300px;
+            width: 100%;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            min-height: 750px;
+        }
+
+        .left-section {
+            flex: 1;
+            background: linear-gradient(rgba(0, 45, 98, 0.85), rgba(0, 45, 98, 0.9)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 40px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .tn-logo {
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+            background-color: white;
+            border-radius: 50%;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tn-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .logo-text p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .tamil-text {
+            font-size: 18px;
+            color: #ffcc00;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .content-section {
+            margin-top: 20px;
+        }
+
+        .content-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: #ffcc00;
+        }
+
+        .content-section h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 80px;
+            height: 4px;
+            background-color: white;
+        }
+
+        .info-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ffcc00;
+        }
+
+        .info-box h3 {
+            color: #ffcc00;
+            margin-bottom: 10px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-box h3 i {
+            margin-right: 10px;
+        }
+
+        .info-box ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .info-box li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .warning-box {
+            background-color: rgba(220, 53, 69, 0.15);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border-left: 4px solid #dc3545;
+        }
+
+        .warning-box h3 {
+            color: #ffcc00;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .documents-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .doc-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .right-section {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Temple Banner Styles */
+        .temple-banner {
+            background: linear-gradient(135deg, #002d62 0%, #001f47 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 45, 98, 0.2);
+            border: 2px solid #ffcc00;
+            animation: templeGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes templeGlow {
+            0% {
+                box-shadow: 0 8px 25px rgba(0, 45, 98, 0.2);
+                border-color: #ffcc00;
+            }
+
+            100% {
+                box-shadow: 0 8px 35px rgba(255, 204, 0, 0.4);
+                border-color: #ff9900;
+            }
+        }
+
+        .temple-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ffcc00, #ff9900, #ffcc00);
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .temple-icon {
+            font-size: 36px;
+            color: #ffcc00;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .temple-name {
+            font-size: 22px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #ffcc00;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .temple-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            font-style: italic;
+            color: #e6f2ff;
+        }
+
+        .temple-location {
+            font-size: 14px;
+            margin-top: 10px;
+            opacity: 0.8;
+            color: #b3d9ff;
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .signup-header h2 {
+            color: #002d62;
+            font-size: 32px;
+            margin-bottom: 10px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .signup-header h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #ffcc00;
+            border-radius: 2px;
+        }
+
+        .signup-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .signup-form {
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #002d62;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .form-group label span {
+            color: #dc3545;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            z-index: 1;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e1e5eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #002d62;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 45, 98, 0.1);
+        }
+
+        .row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .row .form-group {
+            flex: 1;
+        }
+
+        .caption-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+            align-items: flex-end;
+        }
+
+        .captcha {
+            display: flex;
+            align-items: center;
+            background-color: #f0f4f8;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            font-size: 20px;
+            color: #002d62;
+        }
+
+        .refresh-captcha {
+            margin-left: 10px;
+            color: #002d62;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .refresh-captcha:hover {
+            transform: rotate(180deg);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background-color: #002d62;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #001f47;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 45, 98, 0.2);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .btn-primary:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(40, 40);
+                opacity: 0;
+            }
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+        }
+
+        .login-link a {
+            color: #002d62;
+            font-weight: 600;
+            text-decoration: none;
+            margin-left: 5px;
+            position: relative;
+        }
+
+        .login-link a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #002d62;
+            transition: width 0.3s ease;
+        }
+
+        .login-link a:hover::after {
+            width: 100%;
+        }
+
+        .login-link a:hover {
+            text-decoration: none;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .agreement {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #002d62;
+        }
+
+        .agreement input {
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+
+        .agreement a {
+            color: #002d62;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .agreement a:hover {
+            text-decoration: underline;
+        }
+
+        /* Form field animation */
+        .form-group {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .form-group:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .form-group:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .form-group:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .form-group:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .form-group:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .form-group:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .form-group:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        .form-group:nth-child(8) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+                max-width: 700px;
+            }
+
+            .left-section,
+            .right-section {
+                padding: 30px;
+            }
+
+            .documents-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            .left-section,
+            .right-section {
+                padding: 25px;
+            }
+
+            .row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .caption-section {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .temple-name {
+                font-size: 18px;
+            }
+
+            .temple-subtitle {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Section with TN Logo and Information -->
+        <div class="left-section">
+            <div>
+                <div class="logo-section">
+                    <div class="tn-logo">
+                        <!-- Tamil Nadu Government Logo -->
+                        <img src="images/gov-logo.png"
+                            alt="Tamil Nadu Government Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="logo-text">
+                        <h1>அரணிலை துறை</h1>
+                        <p class="tamil-text">Sri Arthanareeswarar Temple</p>
+                        <p>Marriage Registration Portal</p>
+                        <p>Ulagiyanallur</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Important Notes & Rules</h2>
+
+                    <div class="info-box">
+                        <h3><i class="fas fa-info-circle"></i> Who Can Register a Marriage</h3>
+                        <ul>
+                            <li>The bride must be at least <strong>18 years old</strong> and the groom at least
+                                <strong>21 years old</strong>
+                            </li>
+                            <li>Both parties must give free and voluntary consent</li>
+                            <li>Neither party should have a living spouse (unmarried, divorced or widowed with proof)
+                            </li>
+                            <li>Marriage must be solemnized according to religious rites or under the Special Marriage
+                                Act</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Child Marriage Prohibition</h3>
+                        <p>Child marriage is strictly prohibited under the Prohibition of Child Marriage Act, 2006. The
+                            legal consequences include:</p>
+                        <ul>
+                            <li>Imprisonment up to 2 years and/or fine up to ₹1 lakh for performing, conducting or
+                                promoting child marriage</li>
+                            <li>Child marriages are voidable at the option of the minor party</li>
+                            <li>Any marriage where either party is below legal age is considered child marriage</li>
+                            <li>Report child marriages to Childline at <strong>1098</strong> or local authorities</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <h3><i class="fas fa-file-alt"></i> Required Documents</h3>
+                        <div class="documents-list">
+                            <div class="doc-item">Identity Proof (Aadhaar/Voter ID/Passport)</div>
+                            <div class="doc-item">Age Proof (Birth Certificate/School Certificate)</div>
+                            <div class="doc-item">Address Proof (Utility Bill/Driving License)</div>
+                            <div class="doc-item">Marriage Proof (Invitation/Photos)</div>
+                            <div class="doc-item">Passport Size Photos (4 each)</div>
+                            <div class="doc-item">Affidavits of Marital Status</div>
+                            <div class="doc-item">Witness Details with ID Proof</div>
+                            <div class="doc-item">Previous Marriage Termination Proof (if applicable)</div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <h3><i class="fas fa-clock"></i> Registration Timeline & Fees</h3>
+                        <ul>
+                            <li>Registration within 90 days: ₹100-150 fee</li>
+                            <li>Registration after 90 days but within 150 days: Higher late fee applies</li>
+                            <li>Certificate issued within 7-15 working days after verification</li>
+                            <li>For Special Marriage Act: 30-day notice period required</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer" style="color: rgba(255,255,255,0.8); border-top: 1px solid rgba(255,255,255,0.2);">
+                <p>For assistance: Call 1800-425-1000 (Toll-Free) | Email: aranilai-thurai@tn.gov.in</p>
+                <p style="font-size: 12px; margin-top: 5px;">Note: Providing false information is punishable under
+                    Indian Penal Code</p>
+            </div>
+        </div>
+
+        <!-- Right Section with Sign Up Form -->
+        <div class="right-section">
+            <!-- Temple Banner -->
+            <div class="temple-banner">
+                <div class="temple-icon">
+                    <i class="fas fa-place-of-worship"></i>
+                </div>
+                <div class="temple-name">
+                    அருள்மிகு ஸ்ரீ அர்த்தநாரீஸ்வரர் திருக்கோவில்
+                </div>
+                <div class="temple-subtitle">
+                    Arulmigu Sri Arthanaareeswarar Temple
+                </div>
+                <div class="temple-location">
+                    உலகியநல்லூர் | Ulagiyanallur
+                </div>
+            </div>
+
+            <div class="signup-header">
+                <h2>Create a New Account</h2>
+                <p>Register as a groom to begin your marriage registration process</p>
+            </div>
+
+            <div id="message" class="message"></div>
+
+            <form id="signupForm" class="signup-form">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="fullName">Full Name <span>*</span></label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="fullName" class="form-control"
+                                placeholder="Enter your full name as per Aadhaar" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dob">Date of Birth <span>*</span></label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                            <input type="date" id="dob" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span>*</span></label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                            <input type="tel" id="phone" class="form-control" placeholder="10-digit mobile number"
+                                maxlength="10" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address <span>*</span></label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="place">Place of Residence <span>*</span></label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" id="place" class="form-control"
+                            placeholder="City/District where you currently reside" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="fatherName">Father's Name <span>*</span></label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user-friends"></i>
+                            <input type="text" id="fatherName" class="form-control" placeholder="Father's full name"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="motherName">Mother's Name <span>*</span></label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user-friends"></i>
+                            <input type="text" id="motherName" class="form-control" placeholder="Mother's full name"
+                                required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="aadhaar">Aadhaar Number <span>*</span></label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" id="aadhaar" class="form-control" placeholder="12-digit Aadhaar number"
+                            maxlength="12" required>
+                    </div>
+                </div>
+
+                <div class="caption-section">
+                    <div>
+                        <label>Security Caption <span>*</span></label>
+                        <div class="captcha">
+                            <span id="captchaText">TN78M2</span>
+                            <i class="fas fa-redo refresh-captcha" id="refreshCaptcha"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Enter Caption <span>*</span></label>
+                        <input type="text" id="captchaInput" class="form-control" placeholder="Enter caption"
+                            style="padding: 8px 15px; width: 150px;" required>
+                    </div>
+                </div>
+
+                <div class="agreement">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <label for="agreeTerms">I agree that I am at least 21 years old and meet all eligibility criteria
+                        for marriage registration as per Tamil Nadu laws. I have read and understood the <a
+                            href="#">terms and conditions</a>.</label>
+                </div>
+
+                <button type="submit" id="signupBtn" class="btn btn-primary">Create Account</button>
+            </form>
+
+            <div class="login-link">
+                Already have an account? <a href="signin.html">Login here</a>
+            </div>
+
+            <div class="footer">
+                <p>© 2026 Government of Tamil Nadu. All rights reserved.</p>
+                <p style="font-size: 12px; margin-top: 5px;">This portal is secure and your data is protected under the
+                    Digital Personal Data Protection Act, 2026</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // DOM Elements
+            const signupForm = document.getElementById('signupForm');
+            const fullNameInput = document.getElementById('fullName');
+            const dobInput = document.getElementById('dob');
+            const phoneInput = document.getElementById('phone');
+            const emailInput = document.getElementById('email');
+            const placeInput = document.getElementById('place');
+            const fatherNameInput = document.getElementById('fatherName');
+            const motherNameInput = document.getElementById('motherName');
+            const aadhaarInput = document.getElementById('aadhaar');
+            const captchaInput = document.getElementById('captchaInput');
+            const captchaText = document.getElementById('captchaText');
+            const refreshCaptcha = document.getElementById('refreshCaptcha');
+            const signupBtn = document.getElementById('signupBtn');
+            const messageDiv = document.getElementById('message');
+            const agreeTerms = document.getElementById('agreeTerms');
+
+            // Backend API Base URL
+            const API_BASE_URL = CONFIG.API_BASE_URL;
+
+            // Set max date for DOB (minimum age 21 years)
+            const today = new Date();
+            const minDate = new Date(today.getFullYear() - 21, today.getMonth(), today.getDate());
+            dobInput.max = minDate.toISOString().split('T')[0];
+
+            // Generate a random captcha
+            function generateCaptcha() {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+                let captcha = '';
+                for (let i = 0; i < 6; i++) {
+                    captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                captchaText.textContent = captcha;
+                captchaInput.value = '';
+            }
+
+            // Generate initial captcha
+            generateCaptcha();
+
+            // Refresh captcha with animation
+            refreshCaptcha.addEventListener('click', function () {
+                generateCaptcha();
+                this.style.transform = 'rotate(360deg)';
+                setTimeout(() => {
+                    this.style.transform = 'rotate(0deg)';
+                }, 300);
+            });
+
+            // Validate phone number format
+            phoneInput.addEventListener('input', function () {
+                this.value = this.value.replace(/\D/g, '').slice(0, 10);
+            });
+
+            // Validate Aadhaar number format
+            aadhaarInput.addEventListener('input', function () {
+                this.value = this.value.replace(/\D/g, '').slice(0, 12);
+            });
+
+            // Validate age from DOB
+            function validateAge(dob) {
+                const birthDate = new Date(dob);
+                const age = today.getFullYear() - birthDate.getFullYear();
+                const monthDiff = today.getMonth() - birthDate.getMonth();
+
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    return age - 1;
+                }
+                return age;
+            }
+
+            // Email validation function
+            function isValidEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+
+            // Sign Up form submission handler
+            signupForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                // Validate all form fields
+                if (!fullNameInput.value.trim()) {
+                    showMessage('Please enter your full name', 'error');
+                    fullNameInput.focus();
+                    return;
+                }
+
+                if (!dobInput.value) {
+                    showMessage('Please enter your date of birth', 'error');
+                    dobInput.focus();
+                    return;
+                }
+
+                const age = validateAge(dobInput.value);
+                if (age < 21) {
+                    showMessage('You must be at least 21 years old to register as a groom', 'error');
+                    dobInput.focus();
+                    return;
+                }
+
+                if (!phoneInput.value.trim() || phoneInput.value.length !== 10) {
+                    showMessage('Please enter a valid 10-digit mobile number', 'error');
+                    phoneInput.focus();
+                    return;
+                }
+
+                if (!emailInput.value.trim() || !isValidEmail(emailInput.value)) {
+                    showMessage('Please enter a valid email address', 'error');
+                    emailInput.focus();
+                    return;
+                }
+
+                if (!placeInput.value.trim()) {
+                    showMessage('Please enter your place of residence', 'error');
+                    placeInput.focus();
+                    return;
+                }
+
+                if (!fatherNameInput.value.trim()) {
+                    showMessage("Please enter your father's name", 'error');
+                    fatherNameInput.focus();
+                    return;
+                }
+
+                if (!motherNameInput.value.trim()) {
+                    showMessage("Please enter your mother's name", 'error');
+                    motherNameInput.focus();
+                    return;
+                }
+
+                if (!aadhaarInput.value.trim() || aadhaarInput.value.length !== 12) {
+                    showMessage('Please enter a valid 12-digit Aadhaar number', 'error');
+                    aadhaarInput.focus();
+                    return;
+                }
+
+                if (captchaInput.value !== captchaText.textContent) {
+                    showMessage('Incorrect security caption. Please try again.', 'error');
+                    generateCaptcha();
+                    return;
+                }
+
+                if (!agreeTerms.checked) {
+                    showMessage('You must agree to the terms and conditions', 'error');
+                    return;
+                }
+
+                // Prepare registration data
+                const registerData = {
+                    fullName: fullNameInput.value.trim(),
+                    dob: dobInput.value,
+                    mobileNumber: phoneInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    place: placeInput.value.trim(),
+                    fatherName: fatherNameInput.value.trim(),
+                    motherName: motherNameInput.value.trim(),
+                    aadhaarNumber: aadhaarInput.value.trim()
+                };
+
+                try {
+                    // Show loading state
+                    signupBtn.disabled = true;
+                    signupBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+                    showMessage('Creating your account...', 'success');
+
+                    // Call backend register API
+                    const response = await fetch(`${API_BASE_URL}/auth/signup`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(registerData)
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        showMessage(`Account created successfully! Your Application Number: ${data.applicationNumber}. Please save this for login.`, 'success');
+
+                        alert(`Account created successfully! Your Application Number: ${data.applicationNumber}. Please save this for login.`);
+
+                        // Reset form
+                        signupForm.reset();
+                        generateCaptcha();
+
+                        // Redirect to login after 5 seconds
+                        setTimeout(() => {
+                            window.location.href = 'signin.html';
+                        }, 5000);
+                    } else {
+                        showMessage(data.message, 'error');
+                        generateCaptcha();
+                        signupBtn.disabled = false;
+                        signupBtn.innerHTML = 'Create Account';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showMessage('Registration failed. Network error.', 'error');
+                    signupBtn.disabled = false;
+                    signupBtn.innerHTML = 'Create Account';
+                }
+            });
+
+            // Show message
+            function showMessage(text, type) {
+                messageDiv.textContent = text;
+                messageDiv.className = `message ${type}`;
+                messageDiv.style.display = 'block';
+
+                if (type === 'success') {
+                    // Stay visible for 10 seconds for success to read application number
+                    setTimeout(() => {
+                        messageDiv.style.display = 'none';
+                    }, 10000);
+                } else {
+                    setTimeout(() => {
+                        messageDiv.style.display = 'none';
+                    }, 5000);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

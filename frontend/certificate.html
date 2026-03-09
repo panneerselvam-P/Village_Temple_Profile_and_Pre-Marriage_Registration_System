@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marriage Registration Certificate</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 40px;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+
+        .certificate-container {
+            border: 3px double #8B0000;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #8B0000;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #8B0000;
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .header h2 {
+            color: #000;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .header h3 {
+            font-size: 22px;
+            text-decoration: underline;
+            margin-top: 15px;
+        }
+
+        .temple-info {
+            text-align: center;
+            margin-bottom: 15px;
+            font-style: italic;
+            color: #555;
+        }
+
+        .content {
+            margin-bottom: 30px;
+        }
+
+        .couple-info {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .photo-box {
+            width: 120px;
+            height: 150px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info-section {
+            width: 48%;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #fff8f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Center content including photo */
+        }
+
+        .info-details {
+            width: 100%;
+        }
+
+        .info-section h4 {
+            margin-top: 0;
+            color: #8B0000;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .info-label {
+            width: 120px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .info-value {
+            flex: 1;
+            color: #000;
+        }
+
+        .marriage-details {
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .signature-section {
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .signature-box {
+            text-align: center;
+            width: 200px;
+        }
+
+        .signature-line {
+            border-top: 1px solid #000;
+            width: 100%;
+            margin: 40px auto 5px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        .certificate-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .print-btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background-color: #8B0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #a00000;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                margin: 0;
+            }
+
+            .certificate-container {
+                box-shadow: none;
+                border: 3px double #000;
+                margin: 0;
+            }
+
+            .print-btn-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="certificate-container" id="certificate">
+        <div class="certificate-number">
+            Reg No: <span id="regNo">Loading...</span>
+        </div>
+
+        <div class="header">
+            <h1>அருள்மிகு ஸ்ரீ அர்த்தநாரீஸ்வரர் திருக்கோவில்</h1>
+            <h2>Arulmigu Sri Arthanaareeswarar Temple</h2>
+            <div class="temple-info">உலகியநல்லூர் | Ulagiyanallur</div>
+            <h3>Marriage Registration Certificate</h3>
+        </div>
+
+        <div class="content">
+            <p style="text-align: center;">This is to certify that the marriage between the following individuals has
+                been solemnlyized and registered at this temple:</p>
+
+            <div class="couple-info">
+                <div class="info-section">
+                    <h4>Bride Details</h4>
+                    <div class="photo-box">
+                        <img id="bridePhoto" src="" alt="Bride Photo">
+                    </div>
+                    <div class="info-details">
+                        <div class="info-row">
+                            <span class="info-label">Name:</span>
+                            <span class="info-value" id="brideName">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Date of Birth:</span>
+                            <span class="info-value" id="brideDob">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Age:</span>
+                            <span class="info-value" id="brideAge">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Religion/Caste:</span>
+                            <span class="info-value" id="brideReligion">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Aadhar Number:</span>
+                            <span class="info-value" id="brideAadhar">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Father's Name:</span>
+                            <span class="info-value" id="brideFather">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Mother's Name:</span>
+                            <span class="info-value" id="brideMother">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Address:</span>
+                            <span class="info-value" id="brideAddress">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h4>Groom Details</h4>
+                    <div class="photo-box">
+                        <img id="groomPhoto" src="" alt="Groom Photo">
+                    </div>
+                    <div class="info-details">
+                        <div class="info-row">
+                            <span class="info-label">Name:</span>
+                            <span class="info-value" id="groomName">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Date of Birth:</span>
+                            <span class="info-value" id="groomDob">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Age:</span>
+                            <span class="info-value" id="groomAge">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Religion/Caste:</span>
+                            <span class="info-value" id="groomReligion">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Aadhar Number:</span>
+                            <span class="info-value" id="groomAadhar">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Father's Name:</span>
+                            <span class="info-value" id="groomFather">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Mother's Name:</span>
+                            <span class="info-value" id="groomMother">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Address:</span>
+                            <span class="info-value" id="groomAddress">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="marriage-details">
+                <h4 style="margin-top: 0; color: #8B0000; border-bottom: 1px solid #ddd; padding-bottom: 5px;">Marriage
+                    Particulars</h4>
+                <div class="info-row">
+                    <div class="info-label" style="width: 150px;">Date of Marriage:</div>
+                    <div class="info-value" id="marriageDate">-</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label" style="width: 150px;">Time of Marriage:</div>
+                    <div class="info-value" id="marriageTime">-</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label" style="width: 150px;">Place of Marriage:</div>
+                    <div class="info-value" id="marriagePlace">-</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; font-size: 13px;">
+                <p><strong>Witnesses:</strong></p>
+                <ol>
+                    <li><span id="witness1">-</span></li>
+                    <li><span id="witness2">-</span></li>
+                </ol>
+            </div>
+
+        </div>
+
+        <div class="signature-section">
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <div>Signature of Bride</div>
+            </div>
+
+            <div class="signature-box" style="margin-top: -30px;">
+                <div
+                    style="border: 2px solid #8B0000; width: 80px; height: 80px; border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; color: #8B0000; font-weight: bold; font-size: 12px; margin-bottom: 10px;">
+                    TEMPLE<br>SEAL
+                </div>
+                <div>Executive Officer / Trustee</div>
+            </div>
+
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <div>Signature of Groom</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Generated on: <span id="generatedDate">-</span> | Payment ID: <span id="paymentId">-</span></p>
+            <p>Arulmigu Sri Arthanaareeswarar Temple, Ulagiyanallur. This is a computer-generated certificate.</p>
+        </div>
+    </div>
+
+    <div class="print-btn-container">
+        <button class="btn" onclick="window.print()">Print Certificate</button>
+        <button class="btn" style="background-color: #555; margin-left: 10px;"
+            onclick="window.location.href='index.html'">Back to Home</button>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            // Get ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            if (!id) {
+                alert('No Registration ID found!');
+                return;
+            }
+
+            const API_BASE_URL = CONFIG.API_BASE_URL;
+
+            try {
+                // Fetch data
+                console.log('Fetching certificate for ID:', id);
+                const response = await fetch(`${API_BASE_URL}/register/${id}`);
+                console.log('Response status:', response.status);
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Server returned ' + response.status);
+                }
+
+                const result = await response.json();
+                console.log('API Result:', result);
+
+                if (result.success && result.data) {
+                    const data = result.data;
+
+                    // Populate fields
+                    document.getElementById('regNo').textContent = data.applicationNumber || ('TN-MAR-' + (data.id || '000').toString().padStart(6, '0'));
+
+                    // Helper to safely get value
+                    const safeGet = (val) => val || '-';
+
+                    // Format Time (HH:mm:ss -> hh:mm AM/PM)
+                    const formatTime = (timeStr) => {
+                        if (!timeStr) return '-';
+                        const [hours, minutes] = timeStr.split(':');
+                        let h = parseInt(hours, 10);
+                        const ampm = h >= 12 ? 'PM' : 'AM';
+                        h = h % 12;
+                        h = h ? h : 12; // the hour '0' should be '12'
+                        return `${h}:${minutes} ${ampm}`;
+                    };
+
+                    // Bride
+                    document.getElementById('brideName').textContent = (safeGet(data.brideName) + ' ' + safeGet(data.brideInitial)).trim();
+                    document.getElementById('brideDob').textContent = safeGet(data.brideDob);
+                    document.getElementById('brideAge').textContent = safeGet(data.brideAge);
+                    document.getElementById('brideReligion').textContent = safeGet(data.brideReligion) + ' / ' + safeGet(data.brideCaste);
+                    document.getElementById('brideAadhar').textContent = safeGet(data.brideAadhar);
+                    document.getElementById('brideFather').textContent = safeGet(data.brideFatherName);
+                    document.getElementById('brideMother').textContent = safeGet(data.brideMotherName);
+                    document.getElementById('brideAddress').textContent = safeGet(data.bridePermanentAddress);
+
+                    // Bride Photo
+                    if (data.bridePhoto) {
+                        const img = document.getElementById('bridePhoto');
+                        if (img) {
+                            img.src = data.bridePhoto;
+                            img.style.display = 'block'; // Ensure it's visible
+                        }
+                    } else {
+                    }
+
+                    // Groom
+                    document.getElementById('groomName').textContent = (safeGet(data.groomName) + ' ' + safeGet(data.groomInitial)).trim();
+                    document.getElementById('groomDob').textContent = safeGet(data.groomDob);
+                    document.getElementById('groomAge').textContent = safeGet(data.groomAge);
+                    document.getElementById('groomReligion').textContent = safeGet(data.groomReligion) + ' / ' + safeGet(data.groomCaste);
+                    document.getElementById('groomAadhar').textContent = safeGet(data.groomAadhar);
+                    document.getElementById('groomFather').textContent = safeGet(data.groomFatherName);
+                    document.getElementById('groomMother').textContent = safeGet(data.groomMotherName);
+                    document.getElementById('groomAddress').textContent = safeGet(data.groomPermanentAddress);
+
+                    // Groom Photo
+                    if (data.groomPhoto) {
+                        const img = document.getElementById('groomPhoto');
+                        if (img) {
+                            img.src = data.groomPhoto;
+                            img.style.display = 'block'; // Ensure it's visible
+                        }
+                    } else {
+                    }
+
+                    // Marriage
+                    document.getElementById('marriageDate').textContent = safeGet(data.marriageDate);
+                    document.getElementById('marriageTime').textContent = formatTime(data.marriageTime);
+                    document.getElementById('marriagePlace').textContent = safeGet(data.receptionPlace);
+
+                    // Witnesses
+                    document.getElementById('witness1').textContent = safeGet(data.brideWitnessName) + ' (Bride Side)';
+                    document.getElementById('witness2').textContent = safeGet(data.groomWitnessName) + ' (Groom Side)';
+
+                    // Footer
+                    document.getElementById('generatedDate').textContent = new Date().toLocaleDateString();
+                    document.getElementById('paymentId').textContent = data.razorpayPaymentId || 'PENDING';
+
+                } else {
+                    console.error('Data load failed:', result);
+                    alert('Failed to load data: ' + (result.message || 'Unknown error. Check console.'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error fetching certificate data: ' + error.message);
+            }
+        });
+    </script>
+</body>
+
+</html>

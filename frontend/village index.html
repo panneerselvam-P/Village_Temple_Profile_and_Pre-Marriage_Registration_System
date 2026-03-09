@@ -1,0 +1,2468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ulagiyanallur Village - Digital Governance Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d8a72;
+            --primary-light: #10b981;
+            --primary-dark: #065f46;
+            --secondary: #f59e0b;
+            --accent: #3b82f6;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--secondary) 0%, #fbbf24 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #f8fafc 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .logo-text h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 2px;
+        }
+
+        .logo-text span {
+            color: #ffd700;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .nav-links i {
+            font-size: 1.1rem;
+        }
+
+        /* Admin Button Styles */
+        .nav-admin-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            color: #ffd700;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            animation: adminGlow 3s infinite;
+        }
+
+        .nav-admin-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .nav-admin-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-admin-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: #ffd700;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .nav-admin-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .nav-admin-btn:hover i {
+            transform: rotate(15deg);
+        }
+
+        .admin-text {
+            margin: 0 5px;
+        }
+
+        .admin-badge {
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+
+        @keyframes adminGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.8); }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(rgba(13, 138, 114, 0.9), rgba(13, 138, 114, 0.9)), url('https://images.unsplash.com/photo-1520854221256-17463ccb8b9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-container {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
+            color: #ffd700;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* News & Notification Box */
+        .news-container {
+            width: 350px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .news-header {
+            background: var(--gradient);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
+            animation: shine 3s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { background-position: -350px 0; }
+            100% { background-position: 350px 0; }
+        }
+
+        .news-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .news-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .news-body {
+            padding: 0;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .news-ticker {
+            height: 100%;
+            position: relative;
+        }
+
+        .news-ticker-content {
+            position: absolute;
+            width: 100%;
+            animation: scrollUp 120s linear infinite;
+            animation-play-state: running;
+            padding: 20px 0;
+        }
+
+        .news-ticker:hover .news-ticker-content {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollUp {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+
+        .news-item {
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-item:hover {
+            background: #f8fafc;
+            transform: translateX(5px);
+        }
+
+        .news-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .news-item:hover::before {
+            opacity: 1;
+        }
+
+        .news-item.priority {
+            border-left: 4px solid var(--danger);
+        }
+
+        .news-item.priority::before {
+            background: var(--danger);
+        }
+
+        .news-item.update {
+            border-left: 4px solid var(--accent);
+        }
+
+        .news-item.update::before {
+            background: var(--accent);
+        }
+
+        .news-item.event {
+            border-left: 4px solid var(--secondary);
+        }
+
+        .news-item.event::before {
+            background: var(--secondary);
+        }
+
+        .news-item.general {
+            border-left: 4px solid var(--success);
+        }
+
+        .news-item.general::before {
+            background: var(--success);
+        }
+
+        .news-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-priority {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .badge-update {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+        }
+
+        .badge-event {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .badge-general {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .news-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .news-title i {
+            font-size: 0.9rem;
+        }
+
+        .news-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .news-time {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .news-time i {
+            font-size: 0.8rem;
+        }
+
+        .news-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        .ticker-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--light);
+            border: 1px solid #e2e8f0;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .view-all-btn {
+            padding: 6px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .view-all-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Modern Cards */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 15px auto 0;
+            font-size: 1.1rem;
+        }
+
+        /* Modern Grid Layout */
+        .grid {
+            display: grid;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        /* Modern Card */
+        .modern-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .modern-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient);
+        }
+
+        .modern-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modern-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modern-card h3 i {
+            color: var(--primary);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .card-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin: 15px 0 5px;
+        }
+
+        /* Administration Cards */
+        .admin-card {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .admin-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            padding: 5px;
+            position: relative;
+        }
+
+        .admin-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+
+        .admin-info h4 {
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+            font-size: 1.3rem;
+        }
+
+        .admin-info p {
+            color: var(--gray);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .admin-contact {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .contact-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light);
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Enhanced Complaint Section */
+        .complaint-section {
+            margin-bottom: 80px;
+        }
+
+        .complaint-form-container {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .complaint-header {
+            background: var(--gradient);
+            color: white;
+            padding: 25px 30px;
+        }
+
+        .complaint-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .complaint-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group label i {
+            color: var(--primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(13, 138, 114, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(13, 138, 114, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* Complaints Table */
+        .complaints-table {
+            margin-top: 40px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .table-header {
+            background: var(--light);
+            padding: 20px 30px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .table-header h3 {
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table th {
+            background: var(--light);
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-resolved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-in-progress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* Google Maps Section */
+        .map-section {
+            margin-bottom: 80px;
+        }
+
+        .map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            height: 500px;
+            position: relative;
+        }
+
+        .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        }
+
+        #googleMap {
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            max-width: 300px;
+        }
+
+        .map-overlay h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Events Section */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .event-date {
+            background: var(--gradient);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .event-date .day {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .event-date .month {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .event-content {
+            padding: 25px;
+        }
+
+        .event-content h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .event-content p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .event-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .event-meta i {
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-info li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-info i {
+            color: #ffd700;
+            width: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero-container {
+                flex-direction: column;
+            }
+            
+            .news-container {
+                width: 100%;
+                margin-top: 40px;
+            }
+            
+            .grid-4 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .grid-3, .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--gradient);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                z-index: 999;
+                box-shadow: var(--shadow);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-stats {
+                gap: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .news-container {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero {
+                padding: 60px 0;
+                border-radius: 0 0 30px 30px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-avatar {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Notification Modal */
+        .notification-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .notification-modal.active {
+            display: flex;
+        }
+
+        .notification-content {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .notification-header {
+            background: var(--gradient);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-header h3 {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .notification-body {
+            padding: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Ulagiyanallur <span>Village</span></h1>
+                    <p>Digital Governance Platform</p>
+                </div>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#overview"><i class="fas fa-chart-pie"></i> Overview</a></li>
+                    <li><a href="#administration"><i class="fas fa-user-tie"></i> Administration</a></li>
+                    <li><a href="#complaint"><i class="fas fa-comment-dots"></i> Complaints</a></li>
+                    <li><a href="#location"><i class="fas fa-map-marked-alt"></i> Location</a></li>
+                    <li><a href="#events"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                </ul>
+                <!-- Admin Button -->
+                <a href="village admin.html"  class="nav-admin-btn" id="adminBtn"  title="Administrator Access">
+                    <i class="fas fa-user-shield"></i>
+                    <span class="admin-text">Admin Portal</span>
+                    <span class="admin-badge">🔒</span>
+                </a>
+                
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section with News Box -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-container animate-in">
+                <div class="hero-content">
+                    <h1>Welcome to Ulagiyanallur</h1>
+                    <p>A progressive village in Tamil Nadu embracing digital transformation for better governance and community development.</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="populationCount">5,240</span>
+                            <span class="stat-label">Population</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="householdCount">1,250</span>
+                            <span class="stat-label">Households</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="literacyCount">78.5%</span>
+                            <span class="stat-label">Literacy Rate</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="farmlandCount">850</span>
+                            <span class="stat-label">Farmland (Acres)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- News & Notification Box -->
+                <div class="news-container fade-in">
+                    <div class="news-header">
+                        <h3><i class="fas fa-bullhorn"></i> Latest Updates</h3>
+                        <p>Village News & Announcements</p>
+                    </div>
+                    
+                    <div class="news-body">
+                        <div class="news-ticker" id="newsTicker">
+                            <div class="news-ticker-content" id="newsContent">
+                                <!-- News items will be dynamically added here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="news-controls">
+                        <div class="ticker-controls">
+                            <button class="control-btn" onclick="toggleTicker()" id="pauseBtn">
+                                <i class="fas fa-pause"></i>
+                            </button>
+                            <button class="control-btn" onclick="resetTicker()">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                        </div>
+                        <button class="view-all-btn" onclick="showAllNews()">
+                            <i class="fas fa-external-link-alt"></i> View All
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Village Overview -->
+    <section class="container" id="overview">
+        <div class="section-title">
+            <h2>Village Overview</h2>
+            <p>Key statistics and information about Ulagiyanallur Village</p>
+        </div>
+        
+        <div class="grid grid-4">
+            <div class="modern-card fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Population</h3>
+                <div class="card-number">5,240</div>
+                <p>Total residents with steady 2.1% annual growth</p>
+            </div>
+            
+            <div class="modern-card fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3>Households</h3>
+                <div class="card-number">1,250</div>
+                <p>Average household size of 4.2 members</p>
+            </div>
+            
+            <div class="modern-card fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Literacy Rate</h3>
+                <div class="card-number">78.5%</div>
+                <p>Male: 84.2% | Female: 72.8%</p>
+            </div>
+            
+            <div class="modern-card fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-tractor"></i>
+                </div>
+                <h3>Agriculture</h3>
+                <div class="card-number">850</div>
+                <p>Acres of fertile farmland</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Village Administration -->
+    <section class="container" id="administration">
+        <div class="section-title">
+            <h2>Village Administration</h2>
+            <p>Meet our dedicated village administration team</p>
+        </div>
+        
+        <div class="grid grid-3">
+            <div class="modern-card admin-card fade-in">
+                <div class="admin-avatar">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Village President">
+                </div>
+                <div class="admin-info">
+                    <h4>Mr. R. Kumar</h4>
+                    <p>Village President</p>
+                    <p>Serving since 2019</p>
+                </div>
+                <div class="admin-contact">
+                    <button class="contact-btn" onclick="contactPerson('Mr. R. Kumar', '9876543210')">
+                        <i class="fas fa-phone"></i>
+                    </button>
+                    <button class="contact-btn" onclick="emailPerson('selvamunr001@gmail.com')">
+                        <i class="fas fa-envelope"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="modern-card admin-card fade-in">
+                <div class="admin-avatar">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Village Secretary">
+                </div>
+                <div class="admin-info">
+                    <h4>Mrs. S. Lakshmi</h4>
+                    <p>Village Secretary</p>
+                    <p>Serving since 2017</p>
+                </div>
+                <div class="admin-contact">
+                    <button class="contact-btn" onclick="contactPerson('Mrs. S. Lakshmi', '9876543211')">
+                        <i class="fas fa-phone"></i>
+                    </button>
+                    <button class="contact-btn" onclick="emailPerson('selvamunr002@gmail.com')">
+                        <i class="fas fa-envelope"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="modern-card admin-card fade-in">
+                <div class="admin-avatar">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Health Officer">
+                </div>
+                <div class="admin-info">
+                    <h4>Dr. V. Arjun</h4>
+                    <p>Village Administrative Officer</p>
+                    <p>Village Officer</p>
+                </div>
+                <div class="admin-contact">
+                    <button class="contact-btn" onclick="contactPerson('Dr. V. Arjun', '9876543213')">
+                        <i class="fas fa-phone"></i>
+                    </button>
+                    <button class="contact-btn" onclick="emailPerson('selvamunr003@gmail.com')">
+                        <i class="fas fa-envelope"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Complaint Registration -->
+    <section class="container complaint-section" id="complaint">
+        <div class="section-title">
+            <h2>Register Complaint</h2>
+            <p>Report issues and concerns for quick resolution</p>
+        </div>
+        
+        <div class="complaint-form-container fade-in">
+            <div class="complaint-header">
+                <h3><i class="fas fa-comment-medical"></i> File a Complaint</h3>
+                <p>Your concerns matter to us. We'll address them promptly.</p>
+            </div>
+            <div class="complaint-body">
+                <form id="complaintForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name"><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile"><i class="fas fa-phone"></i> Mobile Number</label>
+                            <input type="tel" id="mobile" class="form-control" placeholder="Enter 10-digit mobile number" required pattern="[0-9]{10}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="complaintType"><i class="fas fa-tags"></i> Complaint Type</label>
+                        <select id="complaintType" class="form-control" required>
+                            <option value="">Select complaint type</option>
+                            <option value="water">Water Supply Issue</option>
+                            <option value="electricity">Electricity Problem</option>
+                            <option value="road">Road & Drainage</option>
+                            <option value="sanitation">Sanitation & Waste</option>
+                            <option value="agriculture">Agriculture Support</option>
+                            <option value="education">Education Facilities</option>
+                            <option value="healthcare">Healthcare Services</option>
+                            <option value="other">Other Issues</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="location"><i class="fas fa-map-marker-alt"></i> Location/Area</label>
+                        <input type="text" id="location" class="form-control" placeholder="Specify exact location in village" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description"><i class="fas fa-file-alt"></i> Complaint Description</label>
+                        <textarea id="description" class="form-control" rows="4" placeholder="Describe your complaint in detail..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Submit Complaint
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Recent Complaints -->
+        <div class="complaints-table fade-in">
+            <div class="table-header">
+                <h3><i class="fas fa-history"></i> Recent Complaints</h3>
+            </div>
+            <div class="table-container">
+                <table class="table" id="complaintsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="complaintsBody">
+                        <!-- Complaints will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+   <!-- Google Maps Section -->
+<section class="container map-section" id="location">
+    <div class="section-title">
+        <h2>Village Location</h2>
+        <p>Find us on the map and get directions</p>
+    </div>
+    <div class="map-container fade-in">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11932.465898224304!2d78.96370409409681!3d11.619634174235868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bab69a7d9df24c7%3A0x111707042a2e014f!2sUlagiyanallur%2C%20Tamil%20Nadu!5e1!3m2!1sen!2sin!4v1770353034530!5m2!1sen!2sin" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ulagiyanallur Village Location">
+        </iframe>
+        <div class="map-overlay">
+            <h4><i class="fas fa-map-pin"></i> Ulagiyanallur Village</h4>
+            <p>Tiruchirappalli District</p>
+            <p>Tamil Nadu, India</p>
+            <p><i class="fas fa-phone"></i> +91 9876543210</p>
+            <button class="btn btn-secondary" onclick="getDirections()" style="margin-top: 10px;">
+                <i class="fas fa-directions"></i> Get Directions
+            </button>
+        </div>
+    </div>
+</section>
+    <!-- Events Section -->
+    <section class="container" id="events">
+        <div class="section-title">
+            <h2>Upcoming Events</h2>
+            <p>Community events and activities in our village</p>
+        </div> 
+        <div class="events-grid">
+            <div class="event-card fade-in">
+                <div class="event-date">
+                    <div class="day">15</div>
+                    <div class="month">JAN</div>
+                </div>
+                <div class="event-content">
+                    <h4>Pongal Festival Celebration</h4>
+                    <p>Traditional harvest festival with community cooking, games, and cultural programs.</p>
+                    <div class="event-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> Village Ground</span>
+                        <span><i class="fas fa-clock"></i> 9:00 AM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="event-card fade-in">
+                <div class="event-date">
+                    <div class="day">22</div>
+                    <div class="month">JAN</div>
+                </div>
+                <div class="event-content">
+                    <h4>Village Health Camp</h4>
+                    <p>Free medical checkup camp organized by district health department.</p>
+                    <div class="event-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> Primary Health Center</span>
+                        <span><i class="fas fa-clock"></i> 8:00 AM - 4:00 PM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="event-card fade-in">
+                <div class="event-date">
+                    <div class="day">05</div>
+                    <div class="month">FEB</div>
+                </div>
+                <div class="event-content">
+                    <h4>Farmers Training Program</h4>
+                    <p>Training on organic farming techniques and modern agricultural practices.</p>
+                    <div class="event-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> Agriculture Office</span>
+                        <span><i class="fas fa-clock"></i> 10:00 AM</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Ulagiyanallur Village</h3>
+                    <p>A progressive village committed to digital empowerment and community development.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#overview"><i class="fas fa-chevron-right"></i> Village Overview</a></li>
+                        <li><a href="#administration"><i class="fas fa-chevron-right"></i> Administration</a></li>
+                        <li><a href="#complaint"><i class="fas fa-chevron-right"></i> Register Complaint</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> Ulagiyanallur, Tamil Nadu</li>
+                        <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                        <li><i class="fas fa-envelope"></i> info@ulagiyanallur.gov.in</li>
+                        <li><i class="fas fa-clock"></i> Mon-Sat: 9AM - 5PM</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Emergency Contacts</h3>
+                    <ul class="footer-links">
+                        <li><a href="tel:108"><i class="fas fa-ambulance"></i> Ambulance: 108</a></li>
+                        <li><a href="tel:100"><i class="fas fa-shield-alt"></i> Police: 100</a></li>
+                        <li><a href="tel:101"><i class="fas fa-fire"></i> Fire: 101</a></li>
+                        <li><a href="#"><i class="fas fa-hospital"></i> Health Center: 9876543213</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Ulagiyanallur Village Digital Governance Platform. All rights reserved.</p>
+                <p>Developed for the people of Ulagiyanallur Village | MCA Final Year Project</p>
+            </div>
+        </div>
+    </footer>
+    <!-- News Modal -->
+    <div class="notification-modal" id="newsModal">
+        <div class="notification-content">
+            <div class="notification-header">
+                <h3><i class="fas fa-newspaper"></i> All News & Updates</h3>
+                <button class="close-modal" onclick="closeNewsModal()">&times;</button>
+            </div>
+            <div class="notification-body" id="allNewsContent">
+                <!-- All news items will be loaded here -->
+            </div>
+        </div>
+    </div>
+    <script>
+        // Initialize variables
+        let map;
+        let complaints = JSON.parse(localStorage.getItem('ulagiyanallur_complaints')) || [];
+        let complaintIdCounter = complaints.length > 0 ? Math.max(...complaints.map(c => parseInt(c.id.replace('UL', '')))) + 1 : 1;
+        let isTickerPaused = false;
+        let tickerInterval;
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNavigation();
+            initializeForm();
+            loadComplaints();
+            initializeScrollAnimations();
+            updateStatsAnimation();
+            loadNewsTicker();
+            startTickerAnimation();
+            loadEvents();
+            setupDataSync();
+        });
+
+        // Setup data synchronization with admin page
+        function setupDataSync() {
+            // Initial sync
+            syncDataFromAdmin();
+            
+            // Sync every 2 seconds
+            setInterval(syncDataFromAdmin, 3000);
+            
+            // Also listen for storage events (when admin page updates data)
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'village_news_updated' || 
+                    e.key === 'village_events_updated' || 
+                    e.key === 'village_complaints_updated') {
+                    console.log('Data updated from admin, syncing...');
+                    setTimeout(syncDataFromAdmin, 100);
+                }
+            });
+        }
+
+        // Sync data from admin storage
+        function syncDataFromAdmin() {
+            // Sync news
+            const adminNews = JSON.parse(localStorage.getItem('admin_news') || '[]');
+            const activeNews = adminNews.filter(n => n.status === 'active');
+            if (activeNews.length > 0) {
+                localStorage.setItem('village_news', JSON.stringify(activeNews));
+                loadNewsTicker();
+            }
+
+            // Sync events
+            const adminEvents = JSON.parse(localStorage.getItem('admin_events') || '[]');
+            if (adminEvents.length > 0) {
+                localStorage.setItem('village_events', JSON.stringify(adminEvents));
+                loadEvents();
+            }
+
+            // Sync complaints (already handled by shared localStorage)
+            const adminComplaints = JSON.parse(localStorage.getItem('admin_complaints') || '[]');
+            if (adminComplaints.length > complaints.length) {
+                complaints = adminComplaints;
+                loadComplaints();
+            }
+        }
+
+        // Load news ticker
+        function loadNewsTicker() {
+            const newsContent = document.getElementById('newsContent');
+            newsContent.innerHTML = ''; 
+            
+            // Get news from localStorage or use default
+            let villageNews = JSON.parse(localStorage.getItem('village_news'));
+            
+            // If no news in localStorage, use default news
+            if (!villageNews || villageNews.length === 0) {
+                villageNews = [
+                    {
+                        id: 1,
+                        type: 'priority',
+                        badge: 'Priority',
+                        badgeClass: 'badge-priority',
+                        itemClass: 'priority',
+                        title: 'Water Supply Maintenance',
+                        description: 'Water supply will be interrupted on January 20th from 9 AM to 5 PM for pipeline maintenance.',
+                        time: '2 hours ago',
+                        icon: 'fas fa-tint',
+                        date: '2024-01-15'
+                    },
+                    {
+                        id: 2,
+                        type: 'update',
+                        badge: 'Update',
+                        badgeClass: 'badge-update',
+                        itemClass: 'update',
+                        title: 'Property Tax Payment Deadline',
+                        description: 'Last date for property tax payment extended to January 31st without penalty.',
+                        time: '5 hours ago',
+                        icon: 'fas fa-file-invoice-dollar',
+                        date: '2024-01-15'
+                    },
+                    {
+                        id: 3,
+                        type: 'event',
+                        badge: 'Event',
+                        badgeClass: 'badge-event',
+                        itemClass: 'event',
+                        title: 'Pongal Festival Preparation',
+                        description: 'Volunteers needed for Pongal festival preparations. Meeting at village hall tomorrow.',
+                        time: '1 day ago',
+                        icon: 'fas fa-utensils',
+                        date: '2024-01-14'
+                    }
+                ];
+                localStorage.setItem('village_news', JSON.stringify(villageNews));
+            }
+            
+            // Duplicate news items for seamless scrolling
+            const allNews = [...villageNews, ...villageNews]; 
+            
+            allNews.forEach(news => {
+                const newsItem = document.createElement('div');
+                newsItem.className = `news-item ${news.itemClass}`;
+                newsItem.innerHTML = `
+                    <span class="news-badge ${news.badgeClass}">${news.badge}</span>
+                    <div class="news-title">
+                        <i class="${news.icon}"></i>
+                        ${news.title}
+                    </div>
+                    <div class="news-desc">${news.description}</div>
+                    <div class="news-meta">
+                        <span class="news-time">
+                            <i class="far fa-clock"></i>
+                            ${news.time}
+                        </span>
+                        <span>${news.date}</span>
+                    </div>
+                `;
+                newsItem.addEventListener('click', () => {
+                    showNewsDetail(news);
+                });
+                newsContent.appendChild(newsItem);
+            });
+        }
+
+        // Load events
+        // Load events
+        function loadEvents() {
+            const eventsGrid = document.querySelector('.events-grid');
+            if (!eventsGrid) return;
+    
+        // Get events from localStorage or use default
+        let villageEvents = JSON.parse(localStorage.getItem('village_events'));
+    
+        // If no events in localStorage, use default events
+        if (!villageEvents || villageEvents.length === 0) {
+            villageEvents = [
+            {
+                id: 1,
+                title: 'Pongal Festival Celebration',
+                description: 'Traditional harvest festival with community cooking, games, and cultural programs.',
+                day: '15',
+                month: 'JAN',
+                location: 'Village Ground',
+                time: '9:00 AM',
+                color: 'var(--gradient)'
+            },
+            {
+                id: 2,
+                title: 'Village Health Camp',
+                description: 'Free medical checkup camp organized by district health department.',
+                day: '22',
+                month: 'JAN',
+                location: 'Primary Health Center',
+                time: '8:00 AM - 4:00 PM',
+                color: '#3b82f6'
+            },
+            {
+                id: 3,
+                title: 'Farmers Training Program',
+                description: 'Training on organic farming techniques and modern agricultural practices.',
+                day: '05',
+                month: 'FEB',
+                location: 'Agriculture Office',
+                time: '10:00 AM',
+                color: 'var(--gradient)'
+            }
+            ];
+            localStorage.setItem('village_events', JSON.stringify(villageEvents));
+        }
+    
+        // Clear existing events
+        eventsGrid.innerHTML = '';
+    
+        // Sort events by date
+        const sortedEvents = sortEventsByDate([...villageEvents]);
+    
+        // Display events
+        sortedEvents.forEach(event => {
+            const eventCard = document.createElement('div');
+            eventCard.className = 'event-card fade-in';
+        
+        // Generate a color if not present
+        const eventColor = event.color || getRandomGradient();
+        
+            eventCard.innerHTML = `
+                <div class="event-date" style="background: ${eventColor}">
+                    <div class="day">${event.day}</div>
+                    <div class="month">${event.month}</div>
+                </div>
+                <div class="event-content">
+                    <h4>${event.title}</h4>
+                    <p>${event.description}</p>
+                    <div class="event-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
+                        <span><i class="fas fa-clock"></i> ${event.time}</span>
+                    </div>
+                </div>
+            `;
+            eventsGrid.appendChild(eventCard);
+        });
+    
+        // Add fade-in animation
+            setTimeout(() => {
+                document.querySelectorAll('.event-card').forEach(card => {
+                card.classList.add('fade-in', 'visible');
+            });
+        }, 100);
+    }
+
+        // Helper function to get random gradient for new events
+        function getRandomGradient() {
+            const gradients = [
+                'linear-gradient(135deg, #0d8a72 0%, #10b981 100%)',
+                'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)',
+                'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)',
+                'linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)',
+                'linear-gradient(135deg, #ec4899 0%, #f472b6 100%)'
+            ];
+            return gradients[Math.floor(Math.random() * gradients.length)];
+        }
+
+        // Helper function to convert month name to number
+        function getMonthNumber(month) {
+            const months = {
+                'JAN': 0, 'FEB': 1, 'MAR': 2, 'APR': 3, 'MAY': 4, 'JUN': 5,
+                'JUL': 6, 'AUG': 7, 'SEP': 8, 'OCT': 9, 'NOV': 10, 'DEC': 11
+            };
+            return months[month.toUpperCase()] || 0;
+        }
+
+        // Sort events by date
+        function sortEventsByDate(events) {
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+    
+            return events.sort((a, b) => {
+                const dateA = new Date(currentYear, getMonthNumber(a.month), parseInt(a.day));
+                const dateB = new Date(currentYear, getMonthNumber(b.month), parseInt(b.day));
+        
+                // If event is in past, add a year to it for sorting (so past events go to bottom)
+                const aDate = dateA < currentDate ? new Date(currentYear + 1, getMonthNumber(a.month), parseInt(a.day)) : dateA;
+                const bDate = dateB < currentDate ? new Date(currentYear + 1, getMonthNumber(b.month), parseInt(b.day)) : dateB;
+        
+                return aDate - bDate;
+            });
+        }
+
+        // Start ticker animation
+        function startTickerAnimation() {
+            const tickerContent = document.getElementById('newsContent');
+            tickerContent.style.animation = 'scrollUp 20s linear infinite';
+            isTickerPaused = false;
+        }
+
+        // Toggle ticker pause/play
+        function toggleTicker() {
+            const tickerContent = document.getElementById('newsContent');
+            const pauseBtn = document.getElementById('pauseBtn');  
+            if (isTickerPaused) {
+                tickerContent.style.animationPlayState = 'running';
+                pauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                isTickerPaused = false;
+            } else {
+                tickerContent.style.animationPlayState = 'paused';
+                pauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                isTickerPaused = true;
+            }
+        }
+
+        // Reset ticker to start
+        function resetTicker() {
+            const tickerContent = document.getElementById('newsContent');
+            tickerContent.style.animation = 'none';
+            
+            setTimeout(() => {
+                tickerContent.style.animation = 'scrollUp 1200s linear infinite';
+                if (isTickerPaused) {
+                    tickerContent.style.animationPlayState = 'paused';
+                }
+            }, 10);
+        }
+
+        // Show all news in modal
+        function showAllNews() {
+            const modal = document.getElementById('newsModal');
+            const allNewsContent = document.getElementById('allNewsContent');
+            allNewsContent.innerHTML = '';
+            
+            const villageNews = JSON.parse(localStorage.getItem('village_news') || '[]');
+            
+            if (villageNews.length === 0) {
+                allNewsContent.innerHTML = '<p style="text-align: center; color: var(--gray); padding: 40px;">No news available</p>';
+            } else {
+                villageNews.forEach(news => {
+                    const newsItem = document.createElement('div');
+                    newsItem.className = `news-item ${news.itemClass}`;
+                    newsItem.style.marginBottom = '20px';
+                    newsItem.innerHTML = `
+                        <span class="news-badge ${news.badgeClass}">${news.badge}</span>
+                        <div class="news-title" style="font-size: 1.2rem;">
+                            <i class="${news.icon}"></i>
+                            ${news.title}
+                        </div>
+                        <div class="news-desc" style="font-size: 1rem; margin: 10px 0;">${news.description}</div>
+                        <div class="news-meta">
+                            <span class="news-time">
+                                <i class="far fa-clock"></i>
+                                ${news.time}
+                            </span>
+                            <span>${news.date}</span>
+                        </div>
+                    `;  
+                    allNewsContent.appendChild(newsItem);
+                });
+            }
+            
+            modal.classList.add('active');
+        }
+
+        // Show news detail
+        function showNewsDetail(news) {
+            const modal = document.getElementById('newsModal');
+            const allNewsContent = document.getElementById('allNewsContent');
+            allNewsContent.innerHTML = `
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <span class="news-badge ${news.badgeClass}" style="font-size: 1rem;">${news.badge}</span>
+                    <h2 style="color: var(--primary-dark); margin: 15px 0 10px;">
+                        <i class="${news.icon}"></i> ${news.title}
+                    </h2>
+                    <div style="color: var(--gray); margin-bottom: 20px;">
+                        <i class="far fa-clock"></i> ${news.time} | ${news.date}
+                    </div>
+                </div>
+                <div style="background: var(--light); padding: 25px; border-radius: 15px; margin-bottom: 25px;">
+                    <p style="font-size: 1.1rem; line-height: 1.8; color: var(--dark);">
+                        ${news.description}
+                    </p>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                    <div>
+                        <strong>Posted by:</strong> Village Administration
+                    </div>
+                    <button class="btn btn-primary" onclick="closeNewsModal()">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+            `;
+            modal.classList.add('active');
+        }
+
+        // Close news modal
+        function closeNewsModal() {
+            const modal = document.getElementById('newsModal');
+            modal.classList.remove('active');
+        }
+
+        // Get directions function
+        function getDirections() {
+            const destination = "11.619634,78.963704";
+            const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+            window.open(url, '_blank');
+        }
+
+        // Navigation
+    function initializeNavigation() {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    const navItems = document.querySelectorAll('.nav-links a');
+    
+    // Mobile menu toggle
+    mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+            '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+    
+    // Smooth scrolling for anchor links
+    navItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get the target section ID from href
+            const targetId = this.getAttribute('href');
+            console.log('Navigating to:', targetId); // Debug log
+            
+            // Find the target element
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                console.log('Target section found:', targetSection); // Debug log
+                
+                // Remove active class from all nav items
+                navItems.forEach(i => i.classList.remove('active'));
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // Calculate scroll position (adjust for header height)
+                const headerHeight = 80; // Height of sticky header
+                const elementPosition = targetSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                
+                // Scroll to the section
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            } else {
+                console.error('Target section not found:', targetId);
+            }
+        });
+    });
+    
+    // Update active nav on scroll
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY + 100; // Offset for header
+        
+        // Get all sections
+        const sections = document.querySelectorAll('section');
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                // Remove active class from all nav items
+                navItems.forEach(item => item.classList.remove('active'));
+                
+                // Add active class to corresponding nav item
+                const activeNav = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
+                if (activeNav) {
+                    activeNav.classList.add('active');
+                }
+            }
+        });
+    });
+
+    // Handle initial hash in URL
+    if (window.location.hash) {
+        const targetSection = document.querySelector(window.location.hash);
+        if (targetSection) {
+            setTimeout(() => {
+                const headerHeight = 80;
+                const elementPosition = targetSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }, 100);
+        }
+    }
+}
+
+        // Complaint Form
+        function initializeForm() {
+            const form = document.getElementById('complaintForm');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const complaint = {
+                    id: `UL${String(complaintIdCounter).padStart(4, '0')}`,
+                    name: document.getElementById('name').value,
+                    mobile: document.getElementById('mobile').value,
+                    type: document.getElementById('complaintType').value,
+                    location: document.getElementById('location').value,
+                    description: document.getElementById('description').value,
+                    date: new Date().toLocaleDateString('en-IN'),
+                    time: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
+                    status: 'pending',
+                    statusClass: 'status-pending'
+                };
+                
+                complaints.unshift(complaint);
+                complaintIdCounter++;
+                
+                // Save to localStorage
+                localStorage.setItem('ulagiyanallur_complaints', JSON.stringify(complaints));
+                localStorage.setItem('admin_complaints', JSON.stringify(complaints));
+                localStorage.setItem('village_complaints_updated', new Date().toISOString());
+                
+                // Update table
+                loadComplaints();
+                
+                // Show success message
+                showNotification(`Complaint ${complaint.id} registered successfully!`, 'success');
+                
+                // Reset form
+                form.reset();
+            });
+        }
+
+        // Load complaints to table
+        function loadComplaints() {
+            const tbody = document.getElementById('complaintsBody');
+            tbody.innerHTML = '';
+            
+            // Show only latest 10 complaints
+            const recentComplaints = complaints.slice(0, 10);
+            
+            if (recentComplaints.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px; color: #64748b;">
+                            <i class="fas fa-inbox" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
+                            No complaints registered yet
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            recentComplaints.forEach(complaint => {
+                const typeNames = {
+                    water: 'Water Supply',
+                    electricity: 'Electricity',
+                    road: 'Road & Drainage',
+                    sanitation: 'Sanitation',
+                    agriculture: 'Agriculture',
+                    education: 'Education',
+                    healthcare: 'Healthcare',
+                    other: 'Other'
+                };
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${complaint.id}</strong></td>
+                    <td>${complaint.date}<br><small>${complaint.time}</small></td>
+                    <td>${typeNames[complaint.type] || complaint.type}</td>
+                    <td>${complaint.description.substring(0, 50)}${complaint.description.length > 50 ? '...' : ''}</td>
+                    <td><span class="status-badge ${complaint.statusClass}"><i class="fas fa-circle"></i> ${complaint.status}</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Contact functions
+        function contactPerson(name, phone) {
+            if (confirm(`Call ${name} at ${phone}?`)) {
+                window.location.href = `tel:${phone}`;
+            }
+        }
+        
+        function emailPerson(email) {
+            window.location.href = `mailto:${email}`;
+        }
+
+        // Stats animation
+        function updateStatsAnimation() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target') || +counter.innerText.replace(/[^0-9.-]+/g, "");
+                    const count = +counter.innerText.replace(/[^0-9.-]+/g, "");
+                    const increment = target / speed;
+                    
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment).toLocaleString();
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target.toLocaleString();
+                    }
+                };
+                
+                // Set data-target attribute if not present
+                if (!counter.hasAttribute('data-target')) {
+                    const currentValue = counter.innerText;
+                    counter.setAttribute('data-target', currentValue.replace(/[^0-9.-]+/g, ""));
+                    counter.innerText = '0';
+                }
+                
+                updateCount();
+            });
+        }
+
+        // Scroll animations
+        function initializeScrollAnimations() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            // Create new notification
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div style="position: fixed; top: 20px; right: 20px; background: ${type === 'success' ? '#10b981' : '#3b82f6'}; color: white; padding: 15px 25px; border-radius: 10px; box-shadow: var(--shadow); z-index: 10000; display: flex; align-items: center; gap: 10px; animation: slideIn 0.3s ease;">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 5000);
+            
+            // Add animation styles
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        // Admin button handler
+        document.getElementById("adminBtn").addEventListener("click", function (event) {
+            event.preventDefault();
+            if (confirm("Are you sure you want to enter Admin Portal?")) {
+                window.open("village admin.html", "_blank");
+            }
+        });
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('newsModal');
+            if (e.target === modal) {
+                closeNewsModal();
+            }
+        });
+
+        // Check for data updates every second
+        setInterval(function() {
+            syncDataFromAdmin();
+        }, 5000);
+    </script>
+</body>
+</html>

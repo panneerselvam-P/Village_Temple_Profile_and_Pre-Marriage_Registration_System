@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Nadu Marriage Registration - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            min-height: 700px;
+        }
+
+        .left-section {
+            flex: 1;
+            background: linear-gradient(rgba(0, 45, 98, 0.85), rgba(0, 45, 98, 0.9)), url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 40px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .tn-logo {
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+            background-color: white;
+            border-radius: 50%;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tn-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .logo-text p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content-section {
+            margin-top: 30px;
+        }
+
+        .content-section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .content-section h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #ffcc00;
+        }
+
+        .content-section p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        .features {
+            margin-top: 30px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .feature i {
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 16px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffcc00;
+            display: block;
+        }
+
+        .stat-text {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .right-section {
+            flex: 1;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .login-header h2 {
+            color: #002d62;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .login-form {
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #002d62;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e1e5eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #002d62;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 45, 98, 0.1);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #002d62;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #001f47;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 45, 98, 0.2);
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+        }
+
+        .register-link a {
+            color: #002d62;
+            font-weight: 600;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .caption-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .captcha {
+            display: flex;
+            align-items: center;
+            background-color: #f0f4f8;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            font-size: 20px;
+            color: #002d62;
+        }
+
+        .refresh-captcha {
+            margin-left: 10px;
+            color: #002d62;
+            cursor: pointer;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+                max-width: 600px;
+            }
+
+            .left-section,
+            .right-section {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+
+            .left-section,
+            .right-section {
+                padding: 25px;
+            }
+
+            .stats {
+                flex-direction: column;
+            }
+
+            .stat-item {
+                margin-bottom: 15px;
+            }
+
+            .caption-section {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left Section with TN Logo and Information -->
+        <div class="left-section">
+            <div>
+                <div class="logo-section">
+                    <div class="tn-logo">
+                        <!-- Tamil Nadu Government Logo (using placeholder) -->
+                        <img src="images/gov-logo.png"
+                            alt="Tamil Nadu Government Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="logo-text">
+                        <h1>அரணிலை துறை</h1>
+                        <p>Sri Arthanareeswarar Temple - Marriage Registration Portal</p>
+                        <p>Ulagiyanallur</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Tamil Nadu Marriage Registration</h2>
+                    <p>The Tamil Nadu Aranilai Thurai (Marriage Registration Portal) provides a secure and efficient
+                        platform for marriage registration across the state. Our system ensures legal validity and
+                        protection of marital rights as per the Tamil Nadu Marriage Registration Act.</p>
+                    <p>Register your marriage with the Government of Tamil Nadu to obtain an official marriage
+                        certificate, a vital document for various legal and administrative purposes.</p>
+
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Secure & Government-verified process</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Quick processing with online tracking</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-certificate"></i>
+                            <span>Legally valid marriage certificate</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-headset"></i>
+                            <span>24/7 Support in Tamil & English</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">1.2M+</span>
+                    <span class="stat-text">Marriages Registered</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">38</span>
+                    <span class="stat-text">Districts Covered</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">99%</span>
+                    <span class="stat-text">User Satisfaction</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section with Login Form -->
+        <div class="right-section">
+            <div class="login-header">
+                <h2>Login to Your Account</h2>
+                <p>Access your marriage registration application</p>
+            </div>
+
+            <div id="message" class="message"></div>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="applicationNo">Application Number</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-file-alt"></i>
+                        <input type="text" id="applicationNo" class="form-control"
+                            placeholder="Enter your application number" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mobileNo">Mobile Number</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                        <input type="tel" id="mobileNo" class="form-control"
+                            placeholder="Enter registered mobile number" required maxlength="10">
+                    </div>
+                </div>
+
+                <div class="caption-section">
+                    <div>
+                        <label>Security Caption</label>
+                        <div class="captcha">
+                            <span id="captchaText">TN78M2</span>
+                            <i class="fas fa-redo refresh-captcha" id="refreshCaptcha"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Enter Caption</label>
+                        <input type="text" id="captchaInput" class="form-control" placeholder="Enter caption"
+                            style="padding: 8px 15px; width: 150px;" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="loginBtn" class="btn btn-primary">Login</button>
+            </form>
+
+            <div class="register-link">
+                Don't have an account? <a href="signup.html">Register here</a>
+            </div>
+
+            <div class="footer">
+                <p>© 2026 Government of Tamil Nadu. All rights reserved.</p>
+                <p>For assistance, call 1800-425-1000 (Toll-Free) or email aranilai-thurai@tn.gov.in</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // DOM Elements
+            const loginForm = document.getElementById('loginForm');
+            const applicationNoInput = document.getElementById('applicationNo');
+            const mobileNoInput = document.getElementById('mobileNo');
+            const captchaInput = document.getElementById('captchaInput');
+            const captchaText = document.getElementById('captchaText');
+            const refreshCaptcha = document.getElementById('refreshCaptcha');
+            const loginBtn = document.getElementById('loginBtn');
+            const messageDiv = document.getElementById('message');
+
+            // Backend API Base URL
+            const API_BASE_URL = CONFIG.API_BASE_URL;
+
+            // Generate a random captcha
+            function generateCaptcha() {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+                let captcha = '';
+                for (let i = 0; i < 6; i++) {
+                    captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                captchaText.textContent = captcha;
+                captchaInput.value = '';
+            }
+
+            // Generate initial captcha
+            generateCaptcha();
+
+            // Refresh captcha
+            refreshCaptcha.addEventListener('click', generateCaptcha);
+
+            // Validate mobile number format
+            mobileNoInput.addEventListener('input', function () {
+                this.value = this.value.replace(/\D/g, '').slice(0, 10);
+            });
+
+            // Login form submission handler
+            loginForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                // Validate form
+                if (!applicationNoInput.value.trim()) {
+                    showMessage('Please enter your application number', 'error');
+                    applicationNoInput.focus();
+                    return;
+                }
+
+                if (!mobileNoInput.value.trim() || mobileNoInput.value.length !== 10) {
+                    showMessage('Please enter a valid 10-digit mobile number', 'error');
+                    mobileNoInput.focus();
+                    return;
+                }
+
+                if (!captchaInput.value.trim()) {
+                    showMessage('Please enter the security caption', 'error');
+                    captchaInput.focus();
+                    return;
+                }
+
+                if (captchaInput.value !== captchaText.textContent) {
+                    showMessage('Incorrect security caption. Please try again.', 'error');
+                    generateCaptcha();
+                    captchaInput.value = '';
+                    captchaInput.focus();
+                    return;
+                }
+
+                // Prepare login request
+                const loginData = {
+                    applicationNo: applicationNoInput.value.trim(),
+                    mobile: mobileNoInput.value.trim()
+                };
+
+                try {
+                    // Show loading message
+                    loginBtn.disabled = true;
+                    loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+                    showMessage('Logging in...', 'success');
+
+                    // Call backend login AP
+                    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(loginData)
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        // Store token and user data
+                        if (data.data.token) {
+                            localStorage.setItem('token', data.data.token);
+                        }
+                        if (data.data.user) {
+                            localStorage.setItem('user', JSON.stringify(data.data.user));
+                        }
+
+                        showMessage('Login successful! Redirecting to dashboard...', 'success');
+
+                        // Redirect after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = 'registerform.html'; // Redirect to Registration Form
+                        }, 2000);
+                    } else {
+                        showMessage(data.message, 'error');
+                        generateCaptcha();
+                        loginBtn.disabled = false;
+                        loginBtn.innerHTML = 'Login';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showMessage('Failed to login. Please try again.', 'error');
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = 'Login';
+                }
+            });
+
+            // Show message
+            function showMessage(text, type) {
+                messageDiv.textContent = text;
+                messageDiv.className = `message ${type}`;
+                messageDiv.style.display = 'block';
+
+                // Auto-hide messages after 5 seconds
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+
+</html>

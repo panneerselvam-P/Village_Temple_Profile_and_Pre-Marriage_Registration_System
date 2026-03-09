@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ulagiyanallur Village - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d8a72;
+            --primary-light: #10b981;
+            --primary-dark: #065f46;
+            --secondary: #f59e0b;
+            --accent: #3b82f6;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Admin Header */
+        .admin-header {
+            background: var(--gradient);
+            color: white;
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .admin-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .admin-logo-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .admin-logo-text h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 2px;
+        }
+
+        .admin-logo-text span {
+            color: #ffd700;
+        }
+
+        .admin-logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .admin-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 25px;
+        }
+
+        .admin-user img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Sidebar */
+        .admin-layout {
+            display: flex;
+            margin-top: 90px;
+            min-height: calc(100vh - 90px);
+        }
+
+        .admin-sidebar {
+            width: 250px;
+            background: white;
+            box-shadow: var(--shadow);
+            padding: 30px 0;
+            position: fixed;
+            top: 90px;
+            left: 0;
+            bottom: 0;
+            z-index: 999;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 25px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: #f0fdf4;
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .sidebar-nav i {
+            width: 20px;
+            font-size: 1.1rem;
+        }
+
+        /* Main Content */
+        .admin-main {
+            flex: 1;
+            margin-left: 270px;
+            padding: 30px;
+        }
+
+        .admin-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 5px solid var(--primary);
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .card-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0 5px;
+        }
+
+        .card-title {
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .card-subtitle {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Tables */
+        .admin-table-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .table-header {
+            background: var(--light);
+            padding: 20px 25px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-header h3 {
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .table th,
+        .table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table th {
+            background: var(--light);
+            font-weight: 600;
+            color: var(--primary-dark);
+            position: sticky;
+            top: 0;
+        }
+
+        .table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 138, 114, 0.3);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+        }
+
+        /* Status badges */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-in-progress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-resolved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Forms */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            background: var(--gradient);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(13, 138, 114, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* Login Page */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--gradient);
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: var(--shadow-lg);
+            animation: fadeIn 0.6s ease;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: var(--gray);
+        }
+
+        .alert {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-danger {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid var(--danger);
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid var(--success);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .admin-sidebar {
+                width: 60px;
+            }
+            
+            .admin-sidebar .sidebar-text {
+                display: none;
+            }
+            
+            .admin-main {
+                margin-left: 80px;
+            }
+            
+            .sidebar-nav a {
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .sidebar-nav i {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-main {
+                padding: 20px 15px;
+                margin-left: 0;
+            }
+            
+            .admin-sidebar {
+                transform: translateX(-100%);
+                transition: var(--transition);
+            }
+            
+            .admin-sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+            
+            .table {
+                min-width: 600px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Action buttons in table */
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page (Initially visible) -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <h1>Admin Login</h1>
+                <p>Ulagiyanallur Village Administration</p>
+            </div>
+            
+            <div id="loginAlert" class="alert" style="display: none;"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Enter admin username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter password" required>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </div>
+                
+                <div style="text-align: center; color: var(--gray); font-size: 0.9rem; margin-top: 20px;">
+                    <p>Default credentials: admin / admin123</p>
+                    <p><i class="fas fa-shield-alt"></i> Secure Admin Portal</p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Admin Dashboard (Initially hidden) -->
+    <div id="adminDashboard" style="display: none;">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <div class="container admin-header-content">
+                <a href="#" class="admin-logo">
+                    <div class="admin-logo-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="admin-logo-text">
+                        <h1>Ulagiyanallur <span>Admin</span></h1>
+                        <p>Village Administration Dashboard</p>
+                    </div>
+                </a>
+                
+                <div class="admin-controls">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <div class="admin-user">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Admin">
+                        <span id="adminName">Administrator</span>
+                    </div>
+                    
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Admin Layout -->
+        <div class="admin-layout">
+            <!-- Sidebar -->
+            <nav class="admin-sidebar" id="adminSidebar">
+                <ul class="sidebar-nav">
+                    <li><a href="#dashboard" class="active" onclick="showSection('dashboard')">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span class="sidebar-text">Dashboard</span>
+                    </a></li>
+                    
+                    <li><a href="#news" onclick="showSection('news')">
+                        <i class="fas fa-newspaper"></i>
+                        <span class="sidebar-text">News Management</span>
+                    </a></li>
+                    
+                    <li><a href="#complaints" onclick="showSection('complaints')">
+                        <i class="fas fa-comments"></i>
+                        <span class="sidebar-text">Complaints</span>
+                    </a></li>
+                    
+                    <li><a href="#events" onclick="showSection('events')">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class="sidebar-text">Events Management</span>
+                    </a></li>
+                    
+                    <li><a href="#users" onclick="showSection('users')">
+                        <i class="fas fa-users"></i>
+                        <span class="sidebar-text">User Management</span>
+                    </a></li>
+                    
+                    <li><a href="#settings" onclick="showSection('settings')">
+                        <i class="fas fa-cog"></i>
+                        <span class="sidebar-text">Settings</span>
+                    </a></li>
+                </ul>
+            </nav>
+            
+            <!-- Main Content -->
+            <main class="admin-main">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="admin-section active">
+                    <div class="section-header">
+                        <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+                        <p>Welcome to Ulagiyanallur Village Administration Dashboard</p>
+                    </div>
+                    
+                    <div class="dashboard-cards">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    <i class="fas fa-newspaper"></i>
+                                </div>
+                                <span class="card-subtitle">Active</span>
+                            </div>
+                            <div class="card-number" id="newsCount">0</div>
+                            <div class="card-title">News & Announcements</div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <span class="card-subtitle">Total</span>
+                            </div>
+                            <div class="card-number" id="complaintsCount">0</div>
+                            <div class="card-title">Complaints</div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="card-subtitle">Upcoming</div>
+                            </div>
+                            <div class="card-number" id="eventsCount">0</div>
+                            <div class="card-title">Events</div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="card-subtitle">Registered</div>
+                            </div>
+                            <div class="card-number" id="usersCount">0</div>
+                            <div class="card-title">Users</div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-table-container">
+                        <div class="table-header">
+                            <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                        </div>
+                        <div class="table-container">
+                            <table class="table" id="activityTable">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Action</th>
+                                        <th>Details</th>
+                                        <th>User</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activityBody">
+                                    <!-- Activity logs will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- News Management Section -->
+                <section id="news" class="admin-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-newspaper"></i> News Management</h2>
+                        <p>Add, edit, or delete news and announcements for the village website</p>
+                    </div>
+                    
+                    <div style="margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;">
+                        <h3>Current News</h3>
+                        <button class="btn btn-primary" onclick="openNewsModal()">
+                            <i class="fas fa-plus"></i> Add New News
+                        </button>
+                    </div>
+                    
+                    <div class="admin-table-container">
+                        <div class="table-container">
+                            <table class="table" id="newsTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="newsBody">
+                                    <!-- News items will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Complaints Section -->
+                <section id="complaints" class="admin-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-comments"></i> Complaint Management</h2>
+                        <p>View and manage complaints from villagers</p>
+                    </div>
+                    
+                    <div class="admin-table-container">
+                        <div class="table-header">
+                            <h3><i class="fas fa-list"></i> All Complaints</h3>
+                            <div>
+                                <select id="complaintFilter" class="form-control" style="width: auto; display: inline-block;" onchange="filterComplaints()">
+                                    <option value="all">All Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="in-progress">In Progress</option>
+                                    <option value="resolved">Resolved</option>
+                                    <option value="rejected">Rejected</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="table" id="complaintsTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Date</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="complaintsBody">
+                                    <!-- Complaints will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Events Management Section -->
+                <section id="events" class="admin-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-calendar-alt"></i> Events Management</h2>
+                        <p>Manage upcoming events for the village community</p>
+                    </div>
+                    
+                    <div style="margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;">
+                        <h3>Upcoming Events</h3>
+                        <button class="btn btn-primary" onclick="openEventModal()">
+                            <i class="fas fa-plus"></i> Add New Event
+                        </button>
+                    </div>
+                    
+                    <div class="admin-table-container">
+                        <div class="table-container">
+                            <table class="table" id="eventsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Title</th>
+                                        <th>Location</th>
+                                        <th>Time</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="eventsBody">
+                                    <!-- Events will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Management Section -->
+                <section id="users" class="admin-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-users"></i> User Management</h2>
+                        <p>Manage admin users and permissions</p>
+                    </div>
+                    
+                    <div class="admin-table-container">
+                        <div class="table-container">
+                            <table class="table" id="usersTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Username</th>
+                                        <th>Role</th>
+                                        <th>Last Login</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersBody">
+                                    <!-- Users will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Settings Section -->
+                <section id="settings" class="admin-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-cog"></i> Settings</h2>
+                        <p>System configuration and preferences</p>
+                    </div>
+                    
+                    <div class="admin-table-container">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label><i class="fas fa-globe"></i> Website Title</label>
+                                <input type="text" class="form-control" id="websiteTitle" value="Ulagiyanallur Village">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-envelope"></i> Contact Email</label>
+                                <input type="email" class="form-control" id="contactEmail" value="info@ulagiyanallur.gov.in">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-phone"></i> Contact Phone</label>
+                                <input type="text" class="form-control" id="contactPhone" value="+91 9876543210">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-bell"></i> Notification Settings</label>
+                                <div style="margin-top: 10px;">
+                                    <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                        <input type="checkbox" id="emailNotifications" checked>
+                                        <span>Email notifications for new complaints</span>
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 10px;">
+                                        <input type="checkbox" id="smsNotifications">
+                                        <span>SMS alerts for priority updates</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-primary" onclick="saveSettings()">
+                                    <i class="fas fa-save"></i> Save Settings
+                                </button>
+                                <button type="button" class="btn" onclick="resetSettings()">
+                                    <i class="fas fa-undo"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    
+    <!-- News Modal -->
+    <div class="modal" id="newsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-newspaper"></i> <span id="newsModalTitle">Add New News</span></h3>
+                <button class="close-modal" onclick="closeNewsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="newsForm">
+                    <input type="hidden" id="newsId">
+                    
+                    <div class="form-group">
+                        <label for="newsTitle"><i class="fas fa-heading"></i> News Title</label>
+                        <input type="text" id="newsTitle" class="form-control" placeholder="Enter news title" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newsCategory"><i class="fas fa-tag"></i> Category</label>
+                            <select id="newsCategory" class="form-control" required>
+                                <option value="">Select category</option>
+                                <option value="priority">Priority</option>
+                                <option value="update">Update</option>
+                                <option value="event">Event</option>
+                                <option value="general">General</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newsIcon"><i class="fas fa-icons"></i> Icon</label>
+                            <select id="newsIcon" class="form-control" required>
+                                <option value="fas fa-bullhorn">Bullhorn</option>
+                                <option value="fas fa-tint">Water Drop</option>
+                                <option value="fas fa-bolt">Electricity</option>
+                                <option value="fas fa-road">Road</option>
+                                <option value="fas fa-stethoscope">Health</option>
+                                <option value="fas fa-graduation-cap">Education</option>
+                                <option value="fas fa-seedling">Agriculture</option>
+                                <option value="fas fa-calendar">Calendar</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newsDescription"><i class="fas fa-align-left"></i> Description</label>
+                        <textarea id="newsDescription" class="form-control" placeholder="Enter news description" required rows="4"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newsDate"><i class="fas fa-calendar"></i> Date</label>
+                            <input type="date" id="newsDate" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newsTime"><i class="fas fa-clock"></i> Time Display</label>
+                            <input type="text" id="newsTime" class="form-control" placeholder="e.g., 2 hours ago" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newsStatus"><i class="fas fa-toggle-on"></i> Status</label>
+                        <select id="newsStatus" class="form-control" required>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save News
+                        </button>
+                        <button type="button" class="btn" onclick="closeNewsModal()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Event Modal -->
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-calendar-plus"></i> <span id="eventModalTitle">Add New Event</span></h3>
+                <button class="close-modal" onclick="closeEventModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="eventForm">
+                    <input type="hidden" id="eventId">
+                    
+                    <div class="form-group">
+                        <label for="eventTitle"><i class="fas fa-heading"></i> Event Title</label>
+                        <input type="text" id="eventTitle" class="form-control" placeholder="Enter event title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventDescription"><i class="fas fa-align-left"></i> Description</label>
+                        <textarea id="eventDescription" class="form-control" placeholder="Describe the event" required rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventDay"><i class="fas fa-calendar-day"></i> Day</label>
+                            <input type="number" id="eventDay" class="form-control" placeholder="Day (1-31)" min="1" max="31" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventMonth"><i class="fas fa-calendar-month"></i> Month</label>
+                            <select id="eventMonth" class="form-control" required>
+                                <option value="">Select month</option>
+                                <option value="JAN">January</option>
+                                <option value="FEB">February</option>
+                                <option value="MAR">March</option>
+                                <option value="APR">April</option>
+                                <option value="MAY">May</option>
+                                <option value="JUN">June</option>
+                                <option value="JUL">July</option>
+                                <option value="AUG">August</option>
+                                <option value="SEP">September</option>
+                                <option value="OCT">October</option>
+                                <option value="NOV">November</option>
+                                <option value="DEC">December</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventLocation"><i class="fas fa-map-marker-alt"></i> Location</label>
+                            <input type="text" id="eventLocation" class="form-control" placeholder="Event location" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventTime"><i class="fas fa-clock"></i> Time</label>
+                            <input type="text" id="eventTime" class="form-control" placeholder="e.g., 9:00 AM" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventColor"><i class="fas fa-palette"></i> Color Theme</label>
+                        <select id="eventColor" class="form-control">
+                            <option value="var(--gradient)">Primary Green</option>
+                            <option value="#3b82f6">Blue</option>
+                            <option value="#f59e0b">Orange</option>
+                            <option value="#8b5cf6">Purple</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Event
+                        </button>
+                        <button type="button" class="btn" onclick="closeEventModal()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Complaint Status Modal -->
+    <div class="modal" id="complaintModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-comment-medical"></i> Update Complaint Status</h3>
+                <button class="close-modal" onclick="closeComplaintModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="complaintStatusForm">
+                    <input type="hidden" id="complaintId">
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-id-card"></i> Complaint ID</label>
+                        <div class="form-control" id="displayComplaintId" style="background: #f8fafc;"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Complainant</label>
+                        <div class="form-control" id="displayComplaintName" style="background: #f8fafc;"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Contact</label>
+                        <div class="form-control" id="displayComplaintPhone" style="background: #f8fafc;"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-file-alt"></i> Description</label>
+                        <div class="form-control" id="displayComplaintDesc" style="background: #f8fafc; min-height: 80px;"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="complaintStatus"><i class="fas fa-tasks"></i> Update Status</label>
+                        <select id="complaintStatus" class="form-control" required>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="adminNotes"><i class="fas fa-sticky-note"></i> Admin Notes</label>
+                        <textarea id="adminNotes" class="form-control" placeholder="Add any notes or comments" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Update Status
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="deleteComplaint()">
+                            <i class="fas fa-trash"></i> Delete Complaint
+                        </button>
+                        <button type="button" class="btn" onclick="closeComplaintModal()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Admin Data Storage (Using localStorage for demo)
+    let currentAdmin = null;
+    let adminNews = JSON.parse(localStorage.getItem('admin_news')) || [];
+    let adminComplaints = JSON.parse(localStorage.getItem('admin_complaints')) || [];
+    let adminEvents = JSON.parse(localStorage.getItem('admin_events')) || [];
+    let adminUsers = JSON.parse(localStorage.getItem('admin_users')) || [
+        {
+            id: 1,
+            name: 'Administrator',
+            username: 'admin',
+            password: 'admin123',
+            role: 'superadmin',
+            lastLogin: new Date().toISOString(),
+            status: 'active'
+        }
+    ];
+    let activityLogs = JSON.parse(localStorage.getItem('admin_activity')) || [];
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeLogin();
+        loadInitialData();
+        setupDataSync();
+    });
+    
+    // Setup data synchronization
+    function setupDataSync() {
+        // Sync with village page data on load
+        syncWithVillageData();
+        
+        // Also sync periodically
+        setInterval(syncWithVillageData, 5000);
+    }
+    
+    // Sync admin data with village page data
+    function syncWithVillageData() {
+        // Load complaints from village page if available
+        const villageComplaints = JSON.parse(localStorage.getItem('ulagiyanallur_complaints') || '[]');
+        if (villageComplaints.length > 0) {
+            // Merge complaints, avoid duplicates
+            villageComplaints.forEach(vc => {
+                if (!adminComplaints.find(ac => ac.id === vc.id)) {
+                    adminComplaints.push(vc);
+                }
+            });
+            localStorage.setItem('admin_complaints', JSON.stringify(adminComplaints));
+        }
+        
+        // Update dashboard counts
+        updateDashboardCounts();
+    }
+    
+    // Initialize login system
+    function initializeLogin() {
+        const loginForm = document.getElementById('loginForm');
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Check credentials
+            const user = adminUsers.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                // Update last login
+                user.lastLogin = new Date().toISOString();
+                localStorage.setItem('admin_users', JSON.stringify(adminUsers));
+                
+                // Set current admin
+                currentAdmin = user;
+                
+                // Log activity
+                logActivity('User logged in', `Admin login: ${username}`, username);
+                
+                // Show admin dashboard
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('adminDashboard').style.display = 'block';
+                document.getElementById('adminName').textContent = user.name;
+                
+                // Load all data
+                loadAllData();
+            } else {
+                showAlert('Invalid username or password', 'danger');
+            }
+        });
+    }
+    
+    // Load all admin data
+    function loadAllData() {
+        updateDashboardCounts();
+        loadNewsTable();
+        loadComplaintsTable();
+        loadEventsTable();
+        loadUsersTable();
+        loadActivityLogs();
+    }
+    
+    // Load initial data
+    function loadInitialData() {
+        // Load sample data if empty
+        if (adminNews.length === 0) {
+            adminNews = [
+                {
+                    id: 1,
+                    title: 'Water Supply Maintenance',
+                    category: 'priority',
+                    description: 'Water supply will be interrupted on January 20th from 9 AM to 5 PM for pipeline maintenance.',
+                    date: '2024-01-15',
+                    time: '2 hours ago',
+                    icon: 'fas fa-tint',
+                    status: 'active'
+                },
+                {
+                    id: 2,
+                    title: 'Property Tax Payment Deadline',
+                    category: 'update',
+                    description: 'Last date for property tax payment extended to January 31st without penalty.',
+                    date: '2024-01-15',
+                    time: '5 hours ago',
+                    icon: 'fas fa-file-invoice-dollar',
+                    status: 'active'
+                }
+            ];
+            saveAdminNews();
+        }
+        
+        if (adminEvents.length === 0) {
+            adminEvents = [
+                {
+                    id: 1,
+                    title: 'Pongal Festival Celebration',
+                    description: 'Traditional harvest festival with community cooking, games, and cultural programs.',
+                    day: '15',
+                    month: 'JAN',
+                    location: 'Village Ground',
+                    time: '9:00 AM',
+                    color: 'var(--gradient)'
+                },
+                {
+                    id: 2,
+                    title: 'Village Health Camp',
+                    description: 'Free medical checkup camp organized by district health department.',
+                    day: '22',
+                    month: 'JAN',
+                    location: 'Primary Health Center',
+                    time: '8:00 AM - 4:00 PM',
+                    color: '#3b82f6'
+                }
+            ];
+            saveAdminEvents();
+        }
+        
+        // Sync with existing village complaints
+        syncWithVillageData();
+    }
+    
+    // Dashboard functions
+    function updateDashboardCounts() {
+        document.getElementById('newsCount').textContent = adminNews.filter(n => n.status === 'active').length;
+        document.getElementById('complaintsCount').textContent = adminComplaints.length;
+        document.getElementById('eventsCount').textContent = adminEvents.length;
+        document.getElementById('usersCount').textContent = adminUsers.length;
+    }
+    
+    // Section navigation
+    function showSection(sectionId) {
+        // Hide all sections
+        document.querySelectorAll('.admin-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        // Show selected section
+        document.getElementById(sectionId).classList.add('active');
+        
+        // Update active nav
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${sectionId}`) {
+                link.classList.add('active');
+            }
+        });
+        
+        // Mobile menu close
+        if (window.innerWidth <= 768) {
+            document.getElementById('adminSidebar').classList.remove('active');
+        }
+    }
+    
+    // ==================== NEWS MANAGEMENT ====================
+    function loadNewsTable() {
+        const tbody = document.getElementById('newsBody');
+        tbody.innerHTML = '';
+        
+        adminNews.forEach(news => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${news.id}</td>
+                <td><strong>${news.title}</strong></td>
+                <td><span class="status-badge badge-${news.category}">${news.category}</span></td>
+                <td>${news.date}</td>
+                <td><span class="status-badge ${news.status === 'active' ? 'status-resolved' : 'status-pending'}">${news.status}</span></td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn btn-sm btn-primary" onclick="editNews(${news.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteNews(${news.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+    
+    function openNewsModal(newsId = null) {
+        const modal = document.getElementById('newsModal');
+        const form = document.getElementById('newsForm');
+        const title = document.getElementById('newsModalTitle');
+        
+        if (newsId) {
+            title.textContent = 'Edit News';
+            const news = adminNews.find(n => n.id === newsId);
+            if (news) {
+                document.getElementById('newsId').value = news.id;
+                document.getElementById('newsTitle').value = news.title;
+                document.getElementById('newsCategory').value = news.category;
+                document.getElementById('newsIcon').value = news.icon || 'fas fa-bullhorn';
+                document.getElementById('newsDescription').value = news.description;
+                document.getElementById('newsDate').value = news.date;
+                document.getElementById('newsTime').value = news.time;
+                document.getElementById('newsStatus').value = news.status || 'active';
+            }
+        } else {
+            title.textContent = 'Add New News';
+            form.reset();
+            document.getElementById('newsId').value = '';
+            document.getElementById('newsDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('newsTime').value = 'Just now';
+            document.getElementById('newsStatus').value = 'active';
+        }
+        
+        modal.classList.add('active');
+    }
+    
+    function closeNewsModal() {
+        document.getElementById('newsModal').classList.remove('active');
+        document.getElementById('newsForm').reset();
+    }
+    
+    // Handle news form submission
+    document.getElementById('newsForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const newsId = document.getElementById('newsId').value;
+        const newsData = {
+            id: newsId ? parseInt(newsId) : adminNews.length > 0 ? Math.max(...adminNews.map(n => n.id)) + 1 : 1,
+            title: document.getElementById('newsTitle').value,
+            category: document.getElementById('newsCategory').value,
+            icon: document.getElementById('newsIcon').value,
+            description: document.getElementById('newsDescription').value,
+            date: document.getElementById('newsDate').value,
+            time: document.getElementById('newsTime').value,
+            status: document.getElementById('newsStatus').value
+        };
+        
+        if (newsId) {
+            // Update existing news
+            const index = adminNews.findIndex(n => n.id === parseInt(newsId));
+            if (index !== -1) {
+                adminNews[index] = newsData;
+                logActivity('News updated', `Updated news: ${newsData.title}`, currentAdmin.username);
+            }
+        } else {
+            // Add new news
+            adminNews.push(newsData);
+            logActivity('News added', `Added new news: ${newsData.title}`, currentAdmin.username);
+        }
+        
+        // Save admin news
+        saveAdminNews();
+        
+        // Update tables
+        loadNewsTable();
+        updateDashboardCounts();
+        
+        // Close modal
+        closeNewsModal();
+        
+        // Show success message
+        showAlert(`News ${newsId ? 'updated' : 'added'} successfully!`, 'success');
+    });
+    
+    function editNews(id) {
+        openNewsModal(id);
+    }
+    
+    function deleteNews(id) {
+        if (confirm('Are you sure you want to delete this news item?')) {
+            adminNews = adminNews.filter(news => news.id !== id);
+            saveAdminNews();
+            
+            loadNewsTable();
+            updateDashboardCounts();
+            logActivity('News deleted', `Deleted news item ID: ${id}`, currentAdmin.username);
+            showAlert('News deleted successfully!', 'success');
+        }
+    }
+    
+    function saveAdminNews() {
+        localStorage.setItem('admin_news', JSON.stringify(adminNews));
+        // Also update village page with active news
+        const activeNews = adminNews.filter(n => n.status === 'active');
+        localStorage.setItem('village_news', JSON.stringify(activeNews));
+    }
+    
+    // ==================== COMPLAINT MANAGEMENT ====================
+    function loadComplaintsTable() {
+        const tbody = document.getElementById('complaintsBody');
+        tbody.innerHTML = '';
+        
+        const filter = document.getElementById('complaintFilter').value;
+        let filteredComplaints = adminComplaints;
+        
+        if (filter !== 'all') {
+            filteredComplaints = adminComplaints.filter(c => c.status === filter);
+        }
+        
+        if (filteredComplaints.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 40px; color: #64748b;">
+                        <i class="fas fa-inbox" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
+                        No complaints found
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+        
+        filteredComplaints.forEach(complaint => {
+            const typeNames = {
+                water: 'Water Supply',
+                electricity: 'Electricity',
+                road: 'Road & Drainage',
+                sanitation: 'Sanitation',
+                agriculture: 'Agriculture',
+                education: 'Education',
+                healthcare: 'Healthcare',
+                other: 'Other'
+            };
+            
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><strong>${complaint.id}</strong></td>
+                <td>${complaint.date}<br><small>${complaint.time}</small></td>
+                <td>${complaint.name}</td>
+                <td>${typeNames[complaint.type] || complaint.type}</td>
+                <td>${complaint.description.substring(0, 50)}${complaint.description.length > 50 ? '...' : ''}</td>
+                <td><span class="status-badge ${complaint.statusClass || 'status-pending'}"><i class="fas fa-circle"></i> ${complaint.status}</span></td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn btn-sm btn-primary" onclick="viewComplaint('${complaint.id}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteComplaint('${complaint.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+    
+    function filterComplaints() {
+        loadComplaintsTable();
+    }
+    
+    function viewComplaint(id) {
+        const complaint = adminComplaints.find(c => c.id === id);
+        if (!complaint) return;
+        
+        const modal = document.getElementById('complaintModal');
+        document.getElementById('complaintId').value = complaint.id;
+        document.getElementById('displayComplaintId').textContent = complaint.id;
+        document.getElementById('displayComplaintName').textContent = complaint.name;
+        document.getElementById('displayComplaintPhone').textContent = complaint.mobile || complaint.phone || 'N/A';
+        document.getElementById('displayComplaintDesc').textContent = complaint.description;
+        document.getElementById('complaintStatus').value = complaint.status || 'pending';
+        document.getElementById('adminNotes').value = complaint.adminNotes || '';
+        
+        modal.classList.add('active');
+    }
+    
+    function closeComplaintModal() {
+        document.getElementById('complaintModal').classList.remove('active');
+    }
+    
+    // Handle complaint status update
+    document.getElementById('complaintStatusForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const complaintId = document.getElementById('complaintId').value;
+        const newStatus = document.getElementById('complaintStatus').value;
+        const adminNotes = document.getElementById('adminNotes').value;
+        
+        const complaint = adminComplaints.find(c => c.id === complaintId);
+        if (complaint) {
+            complaint.status = newStatus;
+            complaint.adminNotes = adminNotes;
+            complaint.statusClass = `status-${newStatus.replace(' ', '-')}`;
+            
+            // Save complaints
+            saveAdminComplaints();
+            
+            // Update table
+            loadComplaintsTable();
+            
+            // Close modal
+            closeComplaintModal();
+            
+            // Log activity
+            logActivity('Complaint status updated', `Updated complaint ${complaintId} to ${newStatus}`, currentAdmin.username);
+            
+            // Show success
+            showAlert('Complaint status updated successfully!', 'success');
+        }
+    });
+    
+    function deleteComplaint(id = null) {
+        const complaintId = id || document.getElementById('complaintId').value;
+        
+        if (confirm('Are you sure you want to delete this complaint?')) {
+            adminComplaints = adminComplaints.filter(c => c.id !== complaintId);
+            saveAdminComplaints();
+            
+            loadComplaintsTable();
+            updateDashboardCounts();
+            closeComplaintModal();
+            logActivity('Complaint deleted', `Deleted complaint ID: ${complaintId}`, currentAdmin.username);
+            showAlert('Complaint deleted successfully!', 'success');
+        }
+    }
+    
+    function saveAdminComplaints() {
+        localStorage.setItem('admin_complaints', JSON.stringify(adminComplaints));
+        // Also update village page
+        localStorage.setItem('ulagiyanallur_complaints', JSON.stringify(adminComplaints));
+    }
+    
+    // ==================== EVENTS MANAGEMENT ====================
+    function loadEventsTable() {
+        const tbody = document.getElementById('eventsBody');
+        tbody.innerHTML = '';
+        
+        adminEvents.forEach(event => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><strong>${event.day} ${event.month}</strong></td>
+                <td>${event.title}</td>
+                <td>${event.location}</td>
+                <td>${event.time}</td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn btn-sm btn-primary" onclick="editEvent(${event.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteEvent(${event.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+    
+    function openEventModal(eventId = null) {
+        const modal = document.getElementById('eventModal');
+        const form = document.getElementById('eventForm');
+        const title = document.getElementById('eventModalTitle');
+        
+        if (eventId) {
+            title.textContent = 'Edit Event';
+            const event = adminEvents.find(e => e.id === eventId);
+            if (event) {
+                document.getElementById('eventId').value = event.id;
+                document.getElementById('eventTitle').value = event.title;
+                document.getElementById('eventDescription').value = event.description;
+                document.getElementById('eventDay').value = event.day;
+                document.getElementById('eventMonth').value = event.month;
+                document.getElementById('eventLocation').value = event.location;
+                document.getElementById('eventTime').value = event.time;
+                document.getElementById('eventColor').value = event.color || 'var(--gradient)';
+            }
+        } else {
+            title.textContent = 'Add New Event';
+            form.reset();
+            document.getElementById('eventId').value = '';
+            document.getElementById('eventDay').value = new Date().getDate();
+            document.getElementById('eventMonth').value = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 
+                'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'][new Date().getMonth()];
+            document.getElementById('eventColor').value = 'var(--gradient)';
+        }
+        
+        modal.classList.add('active');
+    }
+    
+    function closeEventModal() {
+        document.getElementById('eventModal').classList.remove('active');
+        document.getElementById('eventForm').reset();
+    }
+    
+    // Handle event form submission
+    document.getElementById('eventForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const eventId = document.getElementById('eventId').value;
+        const eventData = {
+            id: eventId ? parseInt(eventId) : adminEvents.length > 0 ? Math.max(...adminEvents.map(e => e.id)) + 1 : 1,
+            title: document.getElementById('eventTitle').value,
+            description: document.getElementById('eventDescription').value,
+            day: document.getElementById('eventDay').value,
+            month: document.getElementById('eventMonth').value,
+            location: document.getElementById('eventLocation').value,
+            time: document.getElementById('eventTime').value,
+            color: document.getElementById('eventColor').value
+        };
+        
+        if (eventId) {
+            // Update existing event
+            const index = adminEvents.findIndex(e => e.id === parseInt(eventId));
+            if (index !== -1) {
+                adminEvents[index] = eventData;
+                logActivity('Event updated', `Updated event: ${eventData.title}`, currentAdmin.username);
+            }
+        } else {
+            // Add new event
+            adminEvents.push(eventData);
+            logActivity('Event added', `Added new event: ${eventData.title}`, currentAdmin.username);
+        }
+        
+        // Save events
+        saveAdminEvents();
+        
+        // Update tables
+        loadEventsTable();
+        updateDashboardCounts();
+        
+        // Close modal
+        closeEventModal();
+        
+        // Show success message
+        showAlert(`Event ${eventId ? 'updated' : 'added'} successfully!`, 'success');
+    });
+    
+    function editEvent(id) {
+        openEventModal(id);
+    }
+    
+    function deleteEvent(id) {
+        if (confirm('Are you sure you want to delete this event?')) {
+            adminEvents = adminEvents.filter(event => event.id !== id);
+            saveAdminEvents();
+            
+            loadEventsTable();
+            updateDashboardCounts();
+            logActivity('Event deleted', `Deleted event ID: ${id}`, currentAdmin.username);
+            showAlert('Event deleted successfully!', 'success');
+        }
+    }
+    
+    function saveAdminEvents() {
+    localStorage.setItem('admin_events', JSON.stringify(adminEvents));
+    
+    // Also update village page events with a timestamp to trigger updates
+    localStorage.setItem('village_events', JSON.stringify(adminEvents));
+    
+    // Add a timestamp to trigger storage event
+    localStorage.setItem('events_last_updated', new Date().toISOString());
+    
+    console.log('Events saved:', adminEvents.length, 'events');
+}
+    
+    // ==================== USER MANAGEMENT ====================
+    function loadUsersTable() {
+        const tbody = document.getElementById('usersBody');
+        tbody.innerHTML = '';
+        
+        adminUsers.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${user.id}</td>
+                <td><strong>${user.name}</strong></td>
+                <td>${user.username}</td>
+                <td><span class="status-badge ${user.role === 'superadmin' ? 'status-resolved' : 'status-in-progress'}">${user.role}</span></td>
+                <td>${new Date(user.lastLogin).toLocaleString()}</td>
+                <td><span class="status-badge ${user.status === 'active' ? 'status-resolved' : 'status-pending'}">${user.status}</span></td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn btn-sm btn-primary" onclick="editUser(${user.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteUser(${user.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+    
+    // ==================== ACTIVITY LOGS ====================
+    function loadActivityLogs() {
+        const tbody = document.getElementById('activityBody');
+        tbody.innerHTML = '';
+        
+        // Show latest 10 activities
+        const recentActivities = activityLogs.slice(-10).reverse();
+        
+        recentActivities.forEach(log => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${new Date(log.timestamp).toLocaleString()}</td>
+                <td>${log.action}</td>
+                <td>${log.details}</td>
+                <td>${log.user}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+    
+    function logActivity(action, details, user) {
+        const log = {
+            id: activityLogs.length + 1,
+            timestamp: new Date().toISOString(),
+            action: action,
+            details: details,
+            user: user
+        };
+        
+        activityLogs.push(log);
+        localStorage.setItem('admin_activity', JSON.stringify(activityLogs));
+        loadActivityLogs();
+    }
+    
+    // ==================== SETTINGS ====================
+    function saveSettings() {
+        const settings = {
+            websiteTitle: document.getElementById('websiteTitle').value,
+            contactEmail: document.getElementById('contactEmail').value,
+            contactPhone: document.getElementById('contactPhone').value,
+            emailNotifications: document.getElementById('emailNotifications').checked,
+            smsNotifications: document.getElementById('smsNotifications').checked
+        };
+        
+        localStorage.setItem('admin_settings', JSON.stringify(settings));
+        logActivity('Settings updated', 'System settings modified', currentAdmin.username);
+        showAlert('Settings saved successfully!', 'success');
+    }
+    
+    function resetSettings() {
+        document.getElementById('websiteTitle').value = 'Ulagiyanallur Village';
+        document.getElementById('contactEmail').value = 'info@ulagiyanallur.gov.in';
+        document.getElementById('contactPhone').value = '+91 9876543210';
+        document.getElementById('emailNotifications').checked = true;
+        document.getElementById('smsNotifications').checked = false;
+    }
+    
+    // ==================== UTILITY FUNCTIONS ====================
+    function showAlert(message, type) {
+        const alertDiv = document.getElementById('loginAlert');
+        alertDiv.textContent = message;
+        alertDiv.className = `alert alert-${type}`;
+        alertDiv.style.display = 'block';
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            alertDiv.style.display = 'none';
+        }, 5000);
+    }
+    
+    function logout() {
+        if (confirm('Are you sure you want to logout?')) {
+            logActivity('User logged out', 'Admin logged out', currentAdmin.username);
+            currentAdmin = null;
+            document.getElementById('adminDashboard').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('loginForm').reset();
+        }
+    }
+    
+    // Mobile menu toggle
+    document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+        document.getElementById('adminSidebar').classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        const sidebar = document.getElementById('adminSidebar');
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        
+        if (window.innerWidth <= 768 && 
+            !sidebar.contains(e.target) && 
+            !menuBtn.contains(e.target) && 
+            sidebar.classList.contains('active')) {
+            sidebar.classList.remove('active');
+        }
+    });
+    
+    // Initialize settings if not exists
+    if (!localStorage.getItem('admin_settings')) {
+        resetSettings();
+        saveSettings();
+    } else {
+        const settings = JSON.parse(localStorage.getItem('admin_settings'));
+        document.getElementById('websiteTitle').value = settings.websiteTitle;
+        document.getElementById('contactEmail').value = settings.contactEmail;
+        document.getElementById('contactPhone').value = settings.contactPhone;
+        document.getElementById('emailNotifications').checked = settings.emailNotifications;
+        document.getElementById('smsNotifications').checked = settings.smsNotifications;
+    }
+</script>
+</body>
+</html>
