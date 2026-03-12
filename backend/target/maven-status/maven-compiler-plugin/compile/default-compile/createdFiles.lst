@@ -1,9 +1,0 @@
-com\temple\marriage\MarriageApplication.class
-com\temple\marriage\model\User.class
-com\temple\marriage\service\MarriageRegistrationService.class
-com\temple\marriage\controller\AuthController.class
-com\temple\marriage\model\MarriageDocumentRepository.class
-com\temple\marriage\model\MarriageRegistration.class
-com\temple\marriage\repository\MarriageRegistrationRepository.class
-com\temple\marriage\repository\UserRepository.class
-com\temple\marriage\model\MarriageDocument.class

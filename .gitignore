@@ -1,0 +1,23 @@
+# Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.tar.gz
+backend/target/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+.settings/
+.project/
+.classpath/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets (Optional but recommended)
+# backend/src/main/resources/application.properties
